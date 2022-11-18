@@ -3,7 +3,6 @@ import React from "react";
 import { Link } from "react-router-dom";
 
 import NotificationDropdown from "components/Dropdowns/NotificationDropdown.js";
-import UserDropdown from "components/Dropdowns/UserDropdown.js";
 
 export default function Sidebar() {
   const [collapseShow, setCollapseShow] = React.useState("hidden");
@@ -16,8 +15,11 @@ export default function Sidebar() {
             className="md:block text-left md:pb-2 text-blueGray-600 mr-0 inline-block whitespace-nowrap text-sm uppercase font-bold p-4 px-0"
             to="/"
           >
-            Notus React
+            S-link
           </Link>
+          <h6 className="text-blueGray-400 text-sm font-bold">
+              Shorter Link - Sleeker Link
+            </h6>
 
           {/* Collapse */}
           <div
