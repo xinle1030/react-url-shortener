@@ -10,7 +10,7 @@ import HeaderStats from "components/Headers/HeaderStats.js";
 // views
 
 import Dashboard from "views/admin/Dashboard.js";
-import Settings from "views/admin/Settings.js";
+import Settings from "views/admin/CreateForm.js";
 
 export default function Admin() {
   return (
