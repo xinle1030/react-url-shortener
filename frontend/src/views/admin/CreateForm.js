@@ -4,7 +4,7 @@ import React from "react";
 
 import CardForm from "components/Cards/CardForm.js";
 
-export default function Settings() {
+export default function CreateForm() {
   return (
     <>
       <div className="flex flex-wrap">
