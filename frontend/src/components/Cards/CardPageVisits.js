@@ -1,8 +1,79 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
+import axios from "axios";
 
 // components
 
 export default function CardPageVisits() {
+  const [allUrls, setAllUrls] = useState("");
+
+  const getAllUrls = () => {
+    axios.defaults.baseURL = "http://localhost:3333";
+    axios.get("/api/all").then((res) => setAllUrls(JSON.stringify(res.data)));
+  };
+
+  function formatUrlTable(outputResult) {
+    if (outputResult !== "") {
+      const text = JSON.parse(outputResult);
+      console.log(text);
+      const block = (
+        <>
+          <tbody>
+            {text.map((res, index) => (
+              <tr>
+                <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-left">
+                  <strong>
+                  <a className="link-style"
+                    href={res.shortUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    {res.shortUrl}
+                  </a>
+                  </strong>
+
+                  <div>
+                    <i className="fas fa-arrow-right text-emerald-500 mr-4"></i>
+                    <a
+                      href={res.origUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      {res.origUrl}
+                    </a>
+                  </div>
+                </td>
+                <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
+                  {(res.title) ? res.title : '-'}
+                </td>
+                <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
+                  {res.clicks}
+                </td>
+                <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
+                  location here
+                </td>
+                <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
+                  timestamp here
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </>
+      );
+      return block;
+    } else {
+      return "";
+    }
+  }
+
+  useEffect(() => {
+    let ignore = false;
+
+    if (!ignore) getAllUrls();
+    return () => {
+      ignore = true;
+    };
+  }, []);
+
   return (
     <>
       <div className="relative flex flex-col min-w-0 break-words bg-white w-full mb-6 shadow-lg rounded">
@@ -21,24 +92,25 @@ export default function CardPageVisits() {
             <thead>
               <tr>
                 <th className="px-6 bg-blueGray-50 text-blueGray-500 align-middle border border-solid border-blueGray-100 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left">
-                  Page name
+                  Url(s)
                 </th>
                 <th className="px-6 bg-blueGray-50 text-blueGray-500 align-middle border border-solid border-blueGray-100 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left">
-                Title Tag
+                  Title Tag
                 </th>
                 <th className="px-6 bg-blueGray-50 text-blueGray-500 align-middle border border-solid border-blueGray-100 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left">
-                Number of Clicks
+                  Number of Clicks
                 </th>
                 <th className="px-6 bg-blueGray-50 text-blueGray-500 align-middle border border-solid border-blueGray-100 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left">
-                Originating Geolocation
+                  Originating Geolocation
                 </th>
                 <th className="px-6 bg-blueGray-50 text-blueGray-500 align-middle border border-solid border-blueGray-100 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left">
                   Timestamp
                 </th>
               </tr>
             </thead>
-            <tbody>
-              <tr>
+            {/* <tbody> */}
+            {formatUrlTable(allUrls)}
+            {/* <tr>
                 <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-left">
                   /argon/
                   <div>
@@ -58,8 +130,8 @@ export default function CardPageVisits() {
                 <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
                   timestamp here
                 </td>
-              </tr>
-            </tbody>
+              </tr> */}
+            {/* </tbody> */}
           </table>
         </div>
       </div>
