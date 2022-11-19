@@ -1,9 +1,13 @@
 import express from 'express';
+import cors from 'cors';
 import connectDB from './config/db.js';
 import dotenv from 'dotenv';
 dotenv.config({ path: './config/.env' });
 
 const app = express();
+
+// cors for cross origin requesters to the frontend application
+app.use(cors());
 
 connectDB();
 
@@ -13,6 +17,10 @@ import urlsRouter from './routes/urls.js';
 // Body Parser
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
+
+// app.get("/", (req, res, err) => {
+//   res.send("Hey");
+// })
 
 app.use('/', indexRouter);
 app.use('/api', urlsRouter);
