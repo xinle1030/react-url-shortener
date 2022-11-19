@@ -9,7 +9,7 @@ const router = express.Router();
 
 // Short URL Generator
 router.post('/short', async (req, res) => {
-  const { origUrl } = req.body;
+  const { origUrl, title } = req.body;
   const base = process.env.BASE;
 
   const urlId = nanoid(15);
@@ -26,6 +26,7 @@ router.post('/short', async (req, res) => {
           shortUrl,
           urlId,
           date: new Date(),
+          title: title
         });
 
         await url.save();
