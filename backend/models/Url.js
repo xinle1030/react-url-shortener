@@ -22,6 +22,10 @@ const UrlSchema = new mongoose.Schema({
     type: String,
     default: Date.now,
   },
+  title: {
+    type: String,
+    required: false,
+  }
 });
 
 export default mongoose.model('Url', UrlSchema);
