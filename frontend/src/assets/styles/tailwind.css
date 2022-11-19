@@ -3038,3 +3038,11 @@ select {
 
 @media (min-width: 1536px) {
 }
+
+.link-style{
+  color: blue
+}
+
+.link-style:hover{
+  text-decoration: underline;
+}
