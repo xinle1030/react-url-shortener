@@ -25,7 +25,6 @@ router.get('/:urlId', async (req, res) => {
         { $inc: { clicks: 1 }, $push: {visits: visitInfo}}
       );
 
-      console.log("check here");
       const checkUrl = await Url.findOne({ urlId: req.params.urlId });
       console.log(checkUrl);
 
