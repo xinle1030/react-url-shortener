@@ -14,25 +14,6 @@ export default function HeaderDStats() {
             {/* Card stats */}
             <div className="flex flex-wrap">
               <div className="w-full lg:w-6/12 xl:w-6/12 px-4">
-              <strong>
-                  <a className="link-title-style"
-                    href="https://github.com/xinle1030/react-url-shortener/blob/main/frontend/src/views/admin/Dashboard.js"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    somelink
-                  </a>
-                  </strong>
-              </div>
-            </div>
-          </div>
-        </div>
-        <br></br>
-        <div className="px-4 md:px-10 mx-auto w-full">
-          <div>
-            {/* Card stats */}
-            <div className="flex flex-wrap">
-              <div className="w-full lg:w-6/12 xl:w-6/12 px-4">
                 <CardStats
                   statSubtitle="CLICKS"
                   statTitle="123"

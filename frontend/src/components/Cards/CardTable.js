@@ -8,6 +8,7 @@ export default function CardTable() {
   const [visitInfo, setVisitInfo] = useState([]);
   const location = useLocation();
   const urlId = location.state.urlId;
+  const shortUrl = location.state.shortUrl;
 
   const getAllVisitInfo = async (visitInfoIds) => {
     axios.defaults.baseURL = process.env.REACT_APP_BASE;
@@ -79,8 +80,14 @@ export default function CardTable() {
             <div className="relative w-full px-4 max-w-full flex-grow flex-1">
               <h3 className="font-semibold text-base text-blueGray-700">
                 Link Report
-                <h6>{urlId}</h6>
               </h3>
+                <a className="link-style"
+                    href={shortUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    {shortUrl}
+                  </a>
             </div>
           </div>
         </div>

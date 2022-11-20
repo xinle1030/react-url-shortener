@@ -8,12 +8,12 @@ export default function CardPageVisits() {
   const [allUrls, setAllUrls] = useState("");
   let history = useHistory();
 
-  const viewReport = async (urlId) => {
+  const viewReport = async (urlId, shortUrl) => {
 
     history.push({
       pathname: `/dashboard/${urlId}`,
       // search: '?query=abc',
-      state: { urlId: urlId }
+      state: { urlId: urlId, shortUrl: shortUrl }
   });
   }
 
@@ -61,7 +61,7 @@ export default function CardPageVisits() {
                   </strong> */}
                   <button
               className="bg-lightBlue-500 text-white active:bg-lightBlue-600 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 ease-linear transition-all duration-150"
-              onClick={() => viewReport(res.urlId)}
+              onClick={() => viewReport(res.urlId, res.shortUrl)}
             >
               View Reports
             </button>
