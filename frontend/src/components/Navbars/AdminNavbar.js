@@ -1,6 +1,6 @@
 import React from "react";
 
-export default function Navbar() {
+export default function Navbar({title}) {
   return (
     <>
       {/* Navbar */}
@@ -12,7 +12,7 @@ export default function Navbar() {
             href="#pablo"
             onClick={(e) => e.preventDefault()}
           >
-            Dashboard
+            {title}
           </a>
         </div>
       </nav>
