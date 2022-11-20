@@ -107,28 +107,6 @@ export default function CardPageVisits() {
             </thead>
             {/* <tbody> */}
             {formatUrlTable(allUrls)}
-            {/* <tr>
-                <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-left">
-                  /argon/
-                  <div>
-                  <i className="fas fa-arrow-right text-emerald-500 mr-4"></i>
-                  original url here
-                  </div>
-                </td>
-                <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
-                -
-                </td>
-                <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
-                number of clicks here
-                </td>
-                <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
-                  location here
-                </td>
-                <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
-                  timestamp here
-                </td>
-              </tr> */}
-            {/* </tbody> */}
           </table>
         </div>
       </div>
