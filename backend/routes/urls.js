@@ -55,4 +55,21 @@ router.post("/short", async (req, res) => {
   }
 });
 
+router.get("/:urlId", async (req, res) => {
+  console.log("Get certain url");
+  try {
+    const url = await Url.findOne({ urlId: req.params.urlId });
+    console.log(url);
+    console.log(req.params.urlId);
+    if (url) {
+      return res.json(url);
+    } else {
+      res.status(404).json("Not found");
+    }
+  } catch (e) {
+    console.log(err);
+    res.status(500).json("Server Error");
+  }
+});
+
 export default router;
