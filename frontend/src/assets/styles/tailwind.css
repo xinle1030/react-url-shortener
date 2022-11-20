@@ -3040,7 +3040,15 @@ select {
 }
 
 .link-style{
-  color: blue
+  color: blue;
+}
+
+.link-box a{
+  width: 250px;
+  overflow: hidden;
+  display: inline-block;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .link-style:hover{

@@ -20,7 +20,7 @@ export default function CardPageVisits() {
           <tbody>
             {text.map((res, index) => (
               <tr>
-                <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-left">
+                <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-left link-box">
                   <strong>
                   <a className="link-style"
                     href={res.shortUrl}
