@@ -5,6 +5,12 @@ const VisitInfoSchema = new mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Url'
   },
+  country: {
+    type: String
+  },
+  city: {
+    type: String
+  },
   location: {
     type: Object
   },
