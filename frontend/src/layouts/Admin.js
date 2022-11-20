@@ -8,6 +8,7 @@ import Sidebar from "components/Sidebar/Sidebar.js";
 
 import Dashboard from "views/admin/Dashboard.js";
 import CreateForm from "views/admin/CreateForm.js";
+import Report from "views/admin/Report.js";
 
 export default function Admin() {
   return (
@@ -17,6 +18,7 @@ export default function Admin() {
         <Switch>
           <Route path="/home" exact component={CreateForm} />
           <Route path="/dashboard" exact component={Dashboard} />
+          <Route path="/dashboard/:urlId" exact component={Report} />
           <Redirect from="/" to="/home" />
         </Switch>
       </div>

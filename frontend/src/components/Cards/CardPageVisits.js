@@ -51,7 +51,7 @@ export default function CardPageVisits() {
                 </td>
                 <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-left link-box">
                   <strong>
-                  <Link className="report-link-style" to="/">View Reports</Link>
+                  <Link className="report-link-style" to={`/dashboard/${res.urlId}`}>View Reports</Link>
                   </strong>
                 </td>
               </tr>
