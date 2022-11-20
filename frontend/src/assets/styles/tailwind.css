@@ -3040,7 +3040,7 @@ select {
 }
 
 .link-style{
-  color: blue;
+  color: #015f8e;
 }
 
 .link-box a{
@@ -3052,5 +3052,11 @@ select {
 }
 
 .link-style:hover{
+  text-decoration: underline;
+}
+
+
+.report-link-style{
+  color: #019be8;
   text-decoration: underline;
 }
