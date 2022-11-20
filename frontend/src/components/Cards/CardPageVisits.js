@@ -9,8 +9,6 @@ export default function CardPageVisits() {
   let history = useHistory();
 
   const viewReport = async (urlId) => {
-    // const data = await getUserLocation();
-    // await setUserLocation(data);
 
     history.push({
       pathname: `/dashboard/${urlId}`,
