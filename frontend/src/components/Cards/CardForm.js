@@ -1,14 +1,15 @@
 import axios from "axios";
 import React, { useState } from "react";
-
+import { useHistory } from "react-router-dom";
 // components
 
 export default function CardForm() {
 
   const [url, setUrl] = useState("");
   const [title, setTitle] = useState("");
+  let history = useHistory();
 
-  const onSubmit = (e) => {
+  const onSubmit = async (e) => {
 
     e.preventDefault();
 
@@ -16,7 +17,7 @@ export default function CardForm() {
     console.log(title);
 
     axios.defaults.baseURL = 'http://localhost:3333';
-    axios.post("/api/short", {
+    await axios.post("/api/short", {
       "origUrl": url,
       "title": title
     }).then(res =>
@@ -27,6 +28,8 @@ export default function CardForm() {
       console.log(err.message);
     })
     setUrl("");
+    setTitle("");
+    history.push('/dashboard');
   };
 
   return (
