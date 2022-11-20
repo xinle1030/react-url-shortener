@@ -12,7 +12,7 @@ router.get("/", async (req, res, next) => {
   
     await VisitInfo.find({
       _id: { $in: objectIds },
-    })
+    }).sort({_id:-1})
       .then((data) => {
         console.log("Data: ", data);
         res.json(data);

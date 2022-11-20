@@ -10,7 +10,7 @@ const router = express.Router();
 // Get all paths
 router.get("/all", async (req, res, next) => {
   console.log("Get all urls");
-  await Url.find({})
+  await Url.find({}).sort({_id:-1}) 
     .then((data) => {
       console.log("Data: ", data);
       res.json(data);
