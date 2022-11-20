@@ -1,17 +1,20 @@
 import express from 'express';
 import Url from '../models/Url.js';
 import VisitInfo from "../models/VisitInfo.js";
-import { getUserLocation } from "../utils/geo_utils.js";
 
 const router = express.Router();
 
 router.get('/:urlId', async (req, res) => {
   try {
     const url = await Url.findOne({ urlId: req.params.urlId });
+    const data = req.query.userLocation;
+
     if (url) {
 
       let visitInfo = new VisitInfo({
         urlId: url.ObjectID,
+        country: "Malaysia",
+        city: "Batu Pahat",
         location: { type: "Point", coordinates: [ 27, 67 ] },
         timestamp: new Date(),
       });
