@@ -7,6 +7,7 @@ import CardPageVisits from "components/Cards/CardPageVisits.js";
 import CardLineChart from "components/Cards/CardLineChart";
 
 export default function Dashboard() {
+
   return (
     <>
       <AdminNavbar title="Link Dashboard"/>
