@@ -13,17 +13,14 @@ connectDB();
 
 import indexRouter from './routes/index.js';
 import urlsRouter from './routes/urls.js';
-
+import visitInfosRouter from './routes/visitInfos.js';
 // Body Parser
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
-// app.get("/", (req, res, err) => {
-//   res.send("Hey");
-// })
-
-app.use('/', indexRouter);
 app.use('/api', urlsRouter);
+app.use('/visitInfos', visitInfosRouter);
+app.use('/', indexRouter);
 
 // Server Setup
 const PORT = process.env.PORT || 3333;
