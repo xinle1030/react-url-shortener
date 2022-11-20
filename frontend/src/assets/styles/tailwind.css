@@ -3043,6 +3043,18 @@ select {
   color: #015f8e;
 }
 
+.link-style:hover{
+  text-decoration: underline;
+}
+
+.link-title-style{
+  color: #c9edfe;
+}
+
+.link-title-style:hover{
+  text-decoration: underline;
+}
+
 .link-box a{
   width: 250px;
   overflow: hidden;
@@ -3050,11 +3062,6 @@ select {
   text-overflow: ellipsis;
   white-space: nowrap;
 }
-
-.link-style:hover{
-  text-decoration: underline;
-}
-
 
 .report-link-style{
   color: #019be8;
