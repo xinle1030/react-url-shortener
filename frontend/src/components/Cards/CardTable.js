@@ -10,7 +10,7 @@ export default function CardTable() {
   const urlId = location.state.urlId;
 
   const getAllVisitInfo = async (visitInfoIds) => {
-    axios.defaults.baseURL = "http://localhost:3333";
+    axios.defaults.baseURL = process.env.REACT_APP_BASE;
 
     axios
       .get(
@@ -55,7 +55,8 @@ export default function CardTable() {
     let ignore = false;
 
     const getAllVisitInfoIds = async () => {
-      axios.defaults.baseURL = "http://localhost:3333";
+      axios.defaults.baseURL = process.env.REACT_APP_BASE;
+      
       await axios.get(`/api/${urlId}`).then((res) => {
         const visitInfoIds = res.data.visits;
         getAllVisitInfo(visitInfoIds);

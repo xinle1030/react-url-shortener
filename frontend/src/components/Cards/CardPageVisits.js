@@ -18,7 +18,7 @@ export default function CardPageVisits() {
   }
 
   const getAllUrls = async () => {
-    axios.defaults.baseURL = "http://localhost:3333";
+    axios.defaults.baseURL = process.env.REACT_APP_BASE;
     axios.get("/api/all").then((res) => setAllUrls(JSON.stringify(res.data)));
   };
 

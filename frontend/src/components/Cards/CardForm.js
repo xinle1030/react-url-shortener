@@ -14,7 +14,7 @@ export default function CardForm() {
     console.log(url);
     console.log(title);
 
-    axios.defaults.baseURL = "http://localhost:3333";
+    axios.defaults.baseURL = process.env.REACT_APP_BASE;
     await axios
       .post("/api/short", {
         origUrl: url,
