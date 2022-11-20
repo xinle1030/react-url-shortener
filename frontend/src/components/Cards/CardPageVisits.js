@@ -1,13 +1,25 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import { Link } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 
 // components
 
 export default function CardPageVisits() {
   const [allUrls, setAllUrls] = useState("");
+  let history = useHistory();
 
-  const getAllUrls = () => {
+  const viewReport = async (urlId) => {
+    // const data = await getUserLocation();
+    // await setUserLocation(data);
+
+    history.push({
+      pathname: `/dashboard/${urlId}`,
+      // search: '?query=abc',
+      state: { urlId: urlId }
+  });
+  }
+
+  const getAllUrls = async () => {
     axios.defaults.baseURL = "http://localhost:3333";
     axios.get("/api/all").then((res) => setAllUrls(JSON.stringify(res.data)));
   };
@@ -20,7 +32,7 @@ export default function CardPageVisits() {
         <>
           <tbody>
             {text.map((res, index) => (
-              <tr>
+              <tr key={index}>
                 <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-left link-box">
                   <strong>
                   <a className="link-style"
@@ -43,16 +55,18 @@ export default function CardPageVisits() {
                     </a>
                   </div>
                 </td>
-                <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
-                  {(res.title) ? res.title : '-'}
-                </td>
-                <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
-                  {res.clicks}
-                </td>
+                <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">{(res.title) ? res.title : '-'}</td>
+                <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">{res.clicks}</td>
                 <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-left link-box">
-                  <strong>
-                  <Link className="report-link-style" to={`/dashboard/${res.urlId}`}>View Reports</Link>
-                  </strong>
+                  {/* <strong>
+                  <Link className="report-link-style" to={`/dashboard/${res.urlId}`} query={{ userLocation: userLocation }}>View Reports</Link>
+                  </strong> */}
+                  <button
+              className="bg-lightBlue-500 text-white active:bg-lightBlue-600 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 ease-linear transition-all duration-150"
+              onClick={() => viewReport(res.urlId)}
+            >
+              View Reports
+            </button>
                 </td>
               </tr>
             ))}
@@ -66,9 +80,12 @@ export default function CardPageVisits() {
   }
 
   useEffect(() => {
+
     let ignore = false;
 
-    if (!ignore) getAllUrls();
+    if (!ignore){
+      getAllUrls();
+    } 
     return () => {
       ignore = true;
     };
