@@ -4,32 +4,31 @@ import { useHistory } from "react-router-dom";
 // components
 
 export default function CardForm() {
-
   const [url, setUrl] = useState("");
   const [title, setTitle] = useState("");
   let history = useHistory();
 
   const onSubmit = async (e) => {
-
     e.preventDefault();
 
     console.log(url);
     console.log(title);
 
-    axios.defaults.baseURL = 'http://localhost:3333';
-    await axios.post("/api/short", {
-      "origUrl": url,
-      "title": title
-    }).then(res =>
-      {
+    axios.defaults.baseURL = "http://localhost:3333";
+    await axios
+      .post("/api/short", {
+        origUrl: url,
+        title: title,
+      })
+      .then((res) => {
         console.log(res.data);
-      }
-    ).catch(err => {
-      console.log(err.message);
-    })
+      })
+      .catch((err) => {
+        console.log(err.message);
+      });
     setUrl("");
     setTitle("");
-    history.push('/dashboard');
+    history.push("/dashboard");
   };
 
   return (
@@ -59,10 +58,10 @@ export default function CardForm() {
                   <input
                     type="text"
                     className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
-                  required
-                  placeholder="http://sampleurl.com"
-                  value={url}
-                  onChange={e => setUrl(e.target.value)}
+                    required
+                    placeholder="http://sampleurl.com"
+                    value={url}
+                    onChange={(e) => setUrl(e.target.value)}
                   />
                 </div>
               </div>
@@ -79,11 +78,10 @@ export default function CardForm() {
                     type="text"
                     className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
                     value={title}
-                  onChange={e => setTitle(e.target.value)}
+                    onChange={(e) => setTitle(e.target.value)}
                   />
                 </div>
               </div>
-
             </div>
 
             <br></br>
