@@ -18,8 +18,8 @@ import visitInfosRouter from './routes/visitInfos.js';
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
-app.use('/api', urlsRouter);
-app.use('/visitInfos', visitInfosRouter);
+app.use('/api/urls', urlsRouter);
+app.use('/api/visitInfos', visitInfosRouter);
 app.use('/', indexRouter);
 
 // Server Setup

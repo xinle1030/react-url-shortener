@@ -19,7 +19,7 @@ export default function CardPageVisits() {
 
   const getAllUrls = async () => {
     axios.defaults.baseURL = process.env.REACT_APP_BASE;
-    axios.get("/api/all").then((res) => setAllUrls(JSON.stringify(res.data)));
+    axios.get("/api/urls/all").then((res) => setAllUrls(JSON.stringify(res.data)));
   };
 
   function formatUrlTable(outputResult) {

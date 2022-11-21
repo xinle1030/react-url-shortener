@@ -15,7 +15,7 @@ export default function CardTable() {
 
     axios
       .get(
-        `/visitInfos?${visitInfoIds
+        `/api/visitInfos?${visitInfoIds
           .map((n, index) => `visitInfoIds[${index}]=${n}`)
           .join("&")}`
       )
@@ -58,7 +58,7 @@ export default function CardTable() {
     const getAllVisitInfoIds = async () => {
       axios.defaults.baseURL = process.env.REACT_APP_BASE;
       
-      await axios.get(`/api/${urlId}`).then((res) => {
+      await axios.get(`/api/urls/${urlId}`).then((res) => {
         const visitInfoIds = res.data.visits;
         getAllVisitInfo(visitInfoIds);
       });
