@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-
 import CardStats from "components/Cards/CardStats.js";
 
 export default function HeaderDStats() {
@@ -64,7 +63,7 @@ export default function HeaderDStats() {
               <div className="w-full lg:w-6/12 xl:w-4/12 px-4">
                 <CardStats
                   statSubtitle="TOP LINK(S)"
-                  statTitle={topLink}
+                  statTitle={(topLink.length > 0) ? topLink : "-"}
                   // statDescripiron="Since last week"
                   statIconName="fas fa-chart-pie"
                   statIconColor="bg-orange-500"
@@ -73,7 +72,7 @@ export default function HeaderDStats() {
               <div className="w-full lg:w-6/12 xl:w-4/12 px-4">
                 <CardStats
                   statSubtitle="TOP COUNTRY"
-                  statTitle={topCountry}
+                  statTitle={(topCountry.length > 0) ? topCountry : "-"}
                   // statDescripiron="Since yesterday"
                   statIconName="fas fa-users"
                   statIconColor="bg-pink-500"
