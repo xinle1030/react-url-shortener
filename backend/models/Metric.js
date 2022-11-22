@@ -1,6 +1,6 @@
 import mongoose from 'mongoose';
 
-const VisitInfoSchema = new mongoose.Schema({
+const MetricSchema = new mongoose.Schema({
   urlId: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Url'
@@ -20,4 +20,4 @@ const VisitInfoSchema = new mongoose.Schema({
   },
 });
 
-export default mongoose.model('VisitInfo', VisitInfoSchema);
+export default mongoose.model('Metric', MetricSchema);

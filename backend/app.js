@@ -13,13 +13,13 @@ connectDB();
 
 import indexRouter from './routes/index.js';
 import urlsRouter from './routes/urls.js';
-import visitInfosRouter from './routes/visitInfos.js';
+import metricsRouter from './routes/metrics.js';
 // Body Parser
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
 app.use('/api/urls', urlsRouter);
-app.use('/api/visitInfos', visitInfosRouter);
+app.use('/api/metrics', metricsRouter);
 app.use('/', indexRouter);
 
 // Server Setup

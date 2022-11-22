@@ -1,7 +1,7 @@
 import express from "express";
 import axios from 'axios';
 import Url from "../models/Url.js";
-import VisitInfo from "../models/VisitInfo.js";
+import Metric from "../models/Metric.js";
 
 const router = express.Router();
 
@@ -27,10 +27,10 @@ router.get("/:urlId", async (req, res) => {
         console.log(error);
     });
 
-    let visitInfo = null;
+    let metric = null;
 
     if (url && locObj){
-      visitInfo = new VisitInfo({
+      metric = new Metric({
         urlId: url.ObjectID,
         country: locObj.country,
         city: locObj.city,
@@ -39,20 +39,20 @@ router.get("/:urlId", async (req, res) => {
       });
     }
     else if (url){
-      visitInfo = new VisitInfo({
+      metric = new Metric({
         urlId: url.ObjectID,
         timestamp: new Date(),
       });
     }
 
-    if (visitInfo) {
-      await visitInfo.save();
+    if (metric) {
+      await metric.save();
 
       await Url.updateOne(
         {
           urlId: req.params.urlId,
         },
-        { $inc: { clicks: 1 }, $push: { visits: visitInfo } }
+        { $inc: { clicks: 1 }, $push: { visits: metric } }
       );
 
       const checkUrl = await Url.findOne({ urlId: req.params.urlId });

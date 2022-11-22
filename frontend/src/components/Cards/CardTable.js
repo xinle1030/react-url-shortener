@@ -5,22 +5,22 @@ import axios from "axios";
 // components
 
 export default function CardTable() {
-  const [visitInfo, setVisitInfo] = useState([]);
+  const [metric, setMetric] = useState([]);
   const location = useLocation();
   const urlId = location.state.urlId;
   const shortUrl = location.state.shortUrl;
 
-  const getAllVisitInfo = async (visitInfoIds) => {
+  const getAllMetric = async (metricIds) => {
     axios.defaults.baseURL = process.env.REACT_APP_BASE;
 
     axios
       .get(
-        `/api/visitInfos?${visitInfoIds
-          .map((n, index) => `visitInfoIds[${index}]=${n}`)
+        `/api/metrics?${metricIds
+          .map((n, index) => `metricIds[${index}]=${n}`)
           .join("&")}`
       )
       .then((res) => {
-        setVisitInfo(JSON.stringify(res.data));
+        setMetric(JSON.stringify(res.data));
       })
       .catch((err) => {
         console.log(err);
@@ -55,17 +55,17 @@ export default function CardTable() {
   useEffect(() => {
     let ignore = false;
 
-    const getAllVisitInfoIds = async () => {
+    const getAllMetricIds = async () => {
       axios.defaults.baseURL = process.env.REACT_APP_BASE;
       
       await axios.get(`/api/urls/${urlId}`).then((res) => {
-        const visitInfoIds = res.data.visits;
-        getAllVisitInfo(visitInfoIds);
+        const metricIds = res.data.visits;
+        getAllMetric(metricIds);
       });
     };
 
     if (!ignore) {
-      getAllVisitInfoIds();
+      getAllMetricIds();
     }
     return () => {
       ignore = true;
@@ -127,7 +127,7 @@ export default function CardTable() {
               </tr>
             </thead>
             {/* <tbody> */}
-            {formatLinkTable(visitInfo)}
+            {formatLinkTable(metric)}
           </table>
         </div>
       </div>

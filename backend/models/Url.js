@@ -30,7 +30,7 @@ const UrlSchema = new mongoose.Schema({
   // each url has an array of visit info
   visits: [{
       type: mongoose.Schema.Types.ObjectId,
-      ref: "VisitInfo"
+      ref: "Metric"
     }]
 });
 
