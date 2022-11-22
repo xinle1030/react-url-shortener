@@ -20,7 +20,7 @@ router.get("/all", async (req, res, next) => {
 });
 
 router.get("/all/summary", async (req, res, next) => {
-
+  console.log("Get all url summary");
   let retData = {
     totalClicks: 0,
     topLink: "",
