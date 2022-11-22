@@ -1,10 +1,49 @@
-import React from "react";
-
-// components
+import React, { useState, useEffect } from "react";
+import axios from "axios";
 
 import CardStats from "components/Cards/CardStats.js";
 
 export default function HeaderDStats() {
+  const [totalClicks, setTotalClicks] = useState(0);
+  const [topLink, setTopLink] = useState("");
+  const [topCountry, setTopCountry] = useState("");
+
+  const callSummaryApi = () => {
+    getUrlSummary();
+    getMetricsSummary();
+  }
+
+  const getUrlSummary = async () => {
+    axios.defaults.baseURL = process.env.REACT_APP_BASE;
+    await axios
+      .get("/api/urls/all/summary")
+      .then((res) => {
+        setTotalClicks(res.data.totalClicks);
+        setTopLink(res.data.topLink);
+        getMetricsSummary();
+      });
+  };
+
+  const getMetricsSummary = async () => {
+    axios.defaults.baseURL = process.env.REACT_APP_BASE;
+    await axios
+      .get("/api/metrics/all/summary")
+      .then((res) => {
+        setTopCountry(res.data.topCountry);
+      });
+  };
+
+  useEffect(() => {
+    let ignore = false;
+
+    if (!ignore) {
+      callSummaryApi();
+    }
+    return () => {
+      ignore = true;
+    };
+  }, []);
+
   return (
     <>
       {/* Header */}
@@ -16,7 +55,7 @@ export default function HeaderDStats() {
               <div className="w-full lg:w-6/12 xl:w-4/12 px-4">
                 <CardStats
                   statSubtitle="TOTAL CLICKS"
-                  statTitle="123"
+                  statTitle={totalClicks.toString()}
                   // statDescripiron="Since last month"
                   statIconName="far fa-chart-bar"
                   statIconColor="bg-red-500"
@@ -24,8 +63,8 @@ export default function HeaderDStats() {
               </div>
               <div className="w-full lg:w-6/12 xl:w-4/12 px-4">
                 <CardStats
-                  statSubtitle="NEW TOP LINK"
-                  statTitle="some link"
+                  statSubtitle="TOP LINK(S)"
+                  statTitle={topLink}
                   // statDescripiron="Since last week"
                   statIconName="fas fa-chart-pie"
                   statIconColor="bg-orange-500"
@@ -34,7 +73,7 @@ export default function HeaderDStats() {
               <div className="w-full lg:w-6/12 xl:w-4/12 px-4">
                 <CardStats
                   statSubtitle="TOP COUNTRY"
-                  statTitle="country"
+                  statTitle={topCountry}
                   // statDescripiron="Since yesterday"
                   statIconName="fas fa-users"
                   statIconColor="bg-pink-500"
