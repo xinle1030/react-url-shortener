@@ -1,31 +1,12 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
 import { useLocation } from "react-router-dom";
-import axios from "axios";
 
 // components
 
-export default function CardTable() {
-  const [metric, setMetric] = useState([]);
+export default function CardTable({ linkTable}) {
+
   const location = useLocation();
-  const urlId = location.state.urlId;
   const shortUrl = location.state.shortUrl;
-
-  const getAllMetric = async (metricIds) => {
-    axios.defaults.baseURL = process.env.REACT_APP_BASE;
-
-    axios
-      .get(
-        `/api/metrics?${metricIds
-          .map((n, index) => `metricIds[${index}]=${n}`)
-          .join("&")}`
-      )
-      .then((res) => {
-        setMetric(JSON.stringify(res.data));
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  };
 
   function formatLinkTable(outputResult) {
     console.log(outputResult);
@@ -37,10 +18,18 @@ export default function CardTable() {
           <tbody>
             {arr.map((res, index) => (
               <tr key={index}>
-                <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">{res.timestamp ? res.timestamp : "-"}</td>
-                <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">{res.country ? res.country : "-"}</td>
-                <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">{res.city ? res.city : "-"}</td>
-                <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">[{res.location.coordinates[1]}, {res.location.coordinates[0]}]</td>
+                <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
+                  {res.timestamp ? res.timestamp : "-"}
+                </td>
+                <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
+                  {res.country ? res.country : "-"}
+                </td>
+                <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
+                  {res.city ? res.city : "-"}
+                </td>
+                <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
+                  [{res.location.coordinates[1]}, {res.location.coordinates[0]}]
+                </td>
               </tr>
             ))}
           </tbody>
@@ -55,22 +44,13 @@ export default function CardTable() {
   useEffect(() => {
     let ignore = false;
 
-    const getAllMetricIds = async () => {
-      axios.defaults.baseURL = process.env.REACT_APP_BASE;
-      
-      await axios.get(`/api/urls/${urlId}`).then((res) => {
-        const metricIds = res.data.metrics;
-        getAllMetric(metricIds);
-      });
-    };
-
     if (!ignore) {
-      getAllMetricIds();
+      formatLinkTable(linkTable);
     }
     return () => {
       ignore = true;
     };
-  }, [urlId]);
+  }, [linkTable]);
 
   return (
     <>
@@ -81,13 +61,14 @@ export default function CardTable() {
               <h3 className="font-semibold text-base text-blueGray-700">
                 Link Report
               </h3>
-                <a className="link-style"
-                    href={shortUrl}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    {shortUrl}
-                  </a>
+              <a
+                className="link-style"
+                href={shortUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                {shortUrl}
+              </a>
             </div>
           </div>
         </div>
@@ -127,7 +108,7 @@ export default function CardTable() {
               </tr>
             </thead>
             {/* <tbody> */}
-            {formatLinkTable(metric)}
+            {formatLinkTable(linkTable)}
           </table>
         </div>
       </div>
