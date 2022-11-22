@@ -59,7 +59,7 @@ export default function CardTable() {
       axios.defaults.baseURL = process.env.REACT_APP_BASE;
       
       await axios.get(`/api/urls/${urlId}`).then((res) => {
-        const metricIds = res.data.visits;
+        const metricIds = res.data.metrics;
         getAllMetric(metricIds);
       });
     };

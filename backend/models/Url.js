@@ -27,8 +27,8 @@ const UrlSchema = new mongoose.Schema({
     required: false,
   },
   // data associations using references
-  // each url has an array of visit info
-  visits: [{
+  // each url has an array of metrics
+  metrics: [{
       type: mongoose.Schema.Types.ObjectId,
       ref: "Metric"
     }]

@@ -52,7 +52,7 @@ router.get("/:urlId", async (req, res) => {
         {
           urlId: req.params.urlId,
         },
-        { $inc: { clicks: 1 }, $push: { visits: metric } }
+        { $inc: { clicks: 1 }, $push: { metrics: metric } }
       );
 
       const checkUrl = await Url.findOne({ urlId: req.params.urlId });
