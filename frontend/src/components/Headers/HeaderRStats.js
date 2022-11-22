@@ -1,10 +1,15 @@
 import React from "react";
+import PropTypes from "prop-types";
 
 // components
 
 import CardStats from "components/Cards/CardStats.js";
 
-export default function HeaderDStats() {
+export default function HeaderRStats({
+  clicks,
+  topCountry
+}) {
+  
   return (
     <>
       {/* Header */}
@@ -16,7 +21,7 @@ export default function HeaderDStats() {
               <div className="w-full lg:w-6/12 xl:w-6/12 px-4">
                 <CardStats
                   statSubtitle="CLICKS"
-                  statTitle="123"
+                  statTitle={clicks.toString()}
                   // statDescripiron="Since last month"
                   statIconName="far fa-chart-bar"
                   statIconColor="bg-red-500"
@@ -25,7 +30,7 @@ export default function HeaderDStats() {
               <div className="w-full lg:w-6/12 xl:w-6/12 px-4">
                 <CardStats
                   statSubtitle="TOP COUNTRY"
-                  statTitle="country"
+                  statTitle={(topCountry.length > 0) ? topCountry : "-"}
                   // statDescripiron="Since yesterday"
                   statIconName="fas fa-users"
                   statIconColor="bg-pink-500"
@@ -38,3 +43,13 @@ export default function HeaderDStats() {
     </>
   );
 }
+
+HeaderRStats.defaultProps = {
+  clicks: 0,
+  topCountry: ""
+};
+
+HeaderRStats.propTypes = {
+  clicks: PropTypes.number,
+  topCountry: PropTypes.string,
+};
