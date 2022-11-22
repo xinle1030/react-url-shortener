@@ -13,11 +13,13 @@ connectDB();
 
 import indexRouter from './routes/index.js';
 import urlsRouter from './routes/urls.js';
+import shortUrlsRouter from './routes/short_urls.js';
 import metricsRouter from './routes/metrics.js';
 // Body Parser
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
+app.use('/api', shortUrlsRouter);
 app.use('/api/urls', urlsRouter);
 app.use('/api/metrics', metricsRouter);
 app.use('/', indexRouter);
