@@ -90,7 +90,7 @@ router.get("/all", async (req, res, next) => {
     });
 });
 
-router.get("/all/summary", async (req, res, next) => {
+export const getAllMetricsSummary = async () => {
   let retData = {
     topCountry: "",
     countryCount: [],
@@ -134,8 +134,9 @@ router.get("/all/summary", async (req, res, next) => {
         });
       });
     }
-    return res.json(retData);
   });
-});
+
+  return retData;
+};
 
 export default router;
