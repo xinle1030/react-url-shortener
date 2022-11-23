@@ -13,54 +13,55 @@ export default function CardDoughnutChart({ countryCount }) {
   };
 
   useEffect(() => {
-    console.log(countryCount);
-    let ignore = false;
+    if (countryCount && countryCount.length > 0) {
+      console.log(countryCount);
+      let ignore = false;
 
-    let countryLabels = countryCount.map((item) => item["country"]);
-    let countData = countryCount.map((item) => item["count"]);
+      let countryLabels = countryCount.map((item) => item["country"]);
+      let countData = countryCount.map((item) => item["count"]);
 
-    let dataColors = getRandomColor(countryLabels.length);
+      let dataColors = getRandomColor(countryLabels.length);
 
-    if (!ignore) {
-
-      var config = {
-        type: "doughnut",
-        data: {
-          labels: countryLabels ? countryLabels : [],
-          datasets: [
-            {
-              backgroundColor: dataColors,
-              data: countData ? countData : [],
-              fill: false,
-            },
-          ],
-        },
-        options: {
-          maintainAspectRatio: false,
-          title: {
-            display: false,
-            text: "Locations Charts",
-            fontColor: "white",
+      if (!ignore) {
+        var config = {
+          type: "doughnut",
+          data: {
+            labels: countryLabels ? countryLabels : [],
+            datasets: [
+              {
+                backgroundColor: dataColors,
+                data: countData ? countData : [],
+                fill: false,
+              },
+            ],
           },
-          legend: {
-            labels: {
+          options: {
+            maintainAspectRatio: false,
+            title: {
+              display: false,
+              text: "Locations Charts",
               fontColor: "white",
             },
-            align: "end",
-            position: "bottom",
+            legend: {
+              labels: {
+                fontColor: "white",
+              },
+              align: "end",
+              position: "bottom",
+            },
+            tooltips: {
+              mode: "index",
+              intersect: false,
+            },
           },
-          tooltips: {
-            mode: "index",
-            intersect: false,
-          },
-        },
+        };
+        var ctx = document.getElementById("doughnut-chart").getContext("2d");
+        window.myLine = new Chart(ctx, config);
+      }
+      return () => {
+        ignore = true;
       };
-      var ctx = document.getElementById("doughnut-chart").getContext("2d");
-      window.myLine = new Chart(ctx, config);
     }
-    return () => {
-      ignore = true;
-    };
   }, [countryCount]);
   return (
     <>
@@ -77,10 +78,18 @@ export default function CardDoughnutChart({ countryCount }) {
         </div>
         <div className="p-4 flex-auto">
           {/* Chart */}
-          <div className="relative h-350-px">
-            <canvas id="doughnut-chart"></canvas>
+          
+            {countryCount && countryCount.length > 0 ? (
+              <div className="relative h-350-px">
+              <canvas id="doughnut-chart"></canvas>
+              </div>
+            ) : (
+              <div className="relative h-300-px">
+              <p className="text-white text-center">No data yet</p>
+              </div>
+            )}
           </div>
-        </div>
+        
       </div>
     </>
   );
