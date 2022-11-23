@@ -7,6 +7,7 @@ export default function CardTable({ linkTable}) {
 
   const location = useLocation();
   const shortUrl = location.state.shortUrl;
+  const title = location.state.title;
 
   function formatLinkTable(outputResult) {
     console.log(outputResult);
@@ -59,7 +60,7 @@ export default function CardTable({ linkTable}) {
           <div className="flex flex-wrap items-center">
             <div className="relative w-full px-4 max-w-full flex-grow flex-1">
               <h3 className="font-semibold text-base text-blueGray-700">
-                Link Report
+                 {(title && title.length > 0) ? `Link Report - ${title}` : "Link Report"}
               </h3>
               <a
                 className="link-style"
