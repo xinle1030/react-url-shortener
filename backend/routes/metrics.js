@@ -26,6 +26,7 @@ router.get("/summary", async (req, res, next) => {
   console.log("Get certain metrics summary");
   let retData = {
     topCountry: "",
+    countryCount: []
   };
   let ids = req.query.metricIds;
   let objectIds = ids.map((id) => ObjectId.ObjectId(id));
@@ -62,6 +63,11 @@ router.get("/summary", async (req, res, next) => {
     console.log(data);
     if (data.length > 0) {
       retData.topCountry = data[0]["_id"]["country"];
+      data.forEach((eachData) => {
+        retData.countryCount.push(
+          {country: eachData["_id"]["country"], count: eachData.count}
+        )
+      });
     }
     return res.json(retData);
   });
@@ -83,6 +89,7 @@ router.get("/all", async (req, res, next) => {
 router.get("/all/summary", async (req, res, next) => {
   let retData = {
     topCountry: "",
+    countryCount: []
   };
 
   // find top country
@@ -116,6 +123,11 @@ router.get("/all/summary", async (req, res, next) => {
   ]).then((data) => {
     if (data.length > 0) {
       retData.topCountry = data[0]["_id"]["country"];
+      data.forEach((eachData) => {
+        retData.countryCount.push(
+          {country: eachData["_id"]["country"], count: eachData.count}
+        )
+      });
     }
     return res.json(retData);
   });
