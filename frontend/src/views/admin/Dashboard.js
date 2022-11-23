@@ -16,31 +16,19 @@ export default function Dashboard() {
   const [topCountry, setTopCountry] = useState("");
   const [countryCount, setCountryCount] = useState([]);
 
-  const callSummaryApi = () => {
-    getUrlSummary();
-    getMetricsSummary();
-  };
-
   const getUrlSummary = async () => {
     
     await axios.get("/api/urls/all/summary").then((res) => {
-      setTotalClicks(res.data.totalClicks);
-      setTopLink(res.data.topLink);
-      getMetricsSummary();
-    });
-  };
-
-  const getMetricsSummary = async () => {
-    
-    await axios.get("/api/metrics/all/summary").then((res) => {
       let retData = res.data;
+      setTotalClicks(retData.totalClicks);
+      setTopLink(retData.topLink);
       setTopCountry(retData.topCountry);
       setCountryCount(retData.countryCount);
     });
   };
 
   useEffect(() => {
-    callSummaryApi();
+    getUrlSummary();
   }, []);
 
   return (
