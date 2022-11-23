@@ -75,7 +75,7 @@ Redirect to original URL
 ### metrics.js
 
 ```http
-GET /api/metrics/all
+  GET /api/metrics/all
 ```
 
 **Response:**
@@ -91,7 +91,7 @@ GET /api/metrics/all
 ```
 
 ```http
-GET /api/metrics
+  GET /api/metrics
 ```
 
 | Query            | Type                  | Description                     |
@@ -147,7 +147,7 @@ Content-Type: application/json
 
 ### urls.js
 ```http
-GET /api/urls/all/summary
+  GET /api/urls/all/summary
 ```
 **Response:**
 ```
@@ -161,7 +161,7 @@ GET /api/urls/all/summary
 ```
 
 ```http
-GET /api/urls/all
+  GET /api/urls/all
 ```
 **Response:**
 ```
@@ -179,7 +179,7 @@ GET /api/urls/all
 ```
 
 ```http
-GET /urls/:urlId/summary
+  GET /urls/:urlId/summary
 ```
 **Response:**
 ```
@@ -192,7 +192,7 @@ GET /urls/:urlId/summary
 ```
 
 ```http
-GET /urls/:urlId
+  GET /urls/:urlId
 ```
 
 | Parameter    | Type     | Description     |
