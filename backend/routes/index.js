@@ -5,6 +5,7 @@ import Metric from "../models/Metric.js";
 
 const router = express.Router();
 
+// redirect to original url using short url
 router.get("/:urlId", async (req, res) => {
 
   let locObj = null;

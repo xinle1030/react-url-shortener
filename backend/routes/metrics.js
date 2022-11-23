@@ -36,7 +36,7 @@ router.get("/", async (req, res, next) => {
     });
 });
 
-
+// get metrics summary by Ids
 export const getMetricsSummaryByIds = async (metricIds) => {
   let retData = {
     topCountry: "",
@@ -91,6 +91,7 @@ export const getMetricsSummaryByIds = async (metricIds) => {
   return retData;
 };
 
+// get all metric summary
 export const getAllMetricsSummary = async () => {
   let retData = {
     topCountry: "",
