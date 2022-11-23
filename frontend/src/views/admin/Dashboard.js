@@ -13,6 +13,7 @@ export default function Dashboard() {
   const [totalClicks, setTotalClicks] = useState(0);
   const [topLink, setTopLink] = useState("");
   const [topCountry, setTopCountry] = useState("");
+  const [countryCount, setCountryCount] = useState([]);
 
   const callSummaryApi = () => {
     getUrlSummary();
@@ -35,7 +36,9 @@ export default function Dashboard() {
     await axios
       .get("/api/metrics/all/summary")
       .then((res) => {
-        setTopCountry(res.data.topCountry);
+        let retData = res.data;
+        setTopCountry(retData.topCountry);
+        setCountryCount(retData.countryCount);
       });
   };
 
@@ -68,7 +71,7 @@ export default function Dashboard() {
         </div>
         <div className="flex flex-wrap mt-4">
           <div className="w-full px-4">
-            <CardDoughnutChart />
+            <CardDoughnutChart countryCount={countryCount}/>
           </div>
         </div>
       </div>

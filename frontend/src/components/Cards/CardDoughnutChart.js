@@ -1,7 +1,7 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Chart from "chart.js";
 
-export default function CardDoughnutChart() {
+export default function CardDoughnutChart({ countryCount }) {
   const getRandomColor = (length) => {
     let colors = [];
 
@@ -12,27 +12,31 @@ export default function CardDoughnutChart() {
     return colors;
   };
 
-  React.useEffect(() => {
+  useEffect(() => {
+    console.log(countryCount);
     let ignore = false;
 
+    let countryLabels = countryCount.map((item) => item["country"]);
+    let countData = countryCount.map((item) => item["count"]);
+
+    let dataColors = getRandomColor(countryLabels.length);
+
     if (!ignore) {
-      let dataColors = getRandomColor(3);
 
       var config = {
         type: "doughnut",
         data: {
-          labels: ["Red", "Yellow", "Blue"],
+          labels: countryLabels ? countryLabels : [],
           datasets: [
             {
               backgroundColor: dataColors,
-              data: [10, 20, 30],
+              data: countData ? countData : [],
               fill: false,
             },
           ],
         },
         options: {
           maintainAspectRatio: false,
-          responsive: true,
           title: {
             display: false,
             text: "Locations Charts",
@@ -49,10 +53,6 @@ export default function CardDoughnutChart() {
             mode: "index",
             intersect: false,
           },
-          hover: {
-            mode: "nearest",
-            intersect: true,
-          },
         },
       };
       var ctx = document.getElementById("doughnut-chart").getContext("2d");
@@ -61,7 +61,7 @@ export default function CardDoughnutChart() {
     return () => {
       ignore = true;
     };
-  }, []);
+  }, [countryCount]);
   return (
     <>
       <div className="relative flex flex-col min-w-0 break-words w-full mb-6 shadow-lg rounded bg-blueGray-700">
