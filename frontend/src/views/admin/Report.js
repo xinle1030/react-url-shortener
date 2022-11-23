@@ -35,43 +35,25 @@ export default function Report() {
       });
   };
 
-  const getMetricSummary = async (metricIds) => {
-
-    await axios
-      .get(
-        `/api/metrics/summary?${metricIds
-          .map((n, index) => `metricIds[${index}]=${n}`)
-          .join("&")}`
-      )
-      .then((res) => {
-        let retData = res.data;
-        setTopCountry(retData.topCountry);
-        setCountryCount(retData.countryCount);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  };
-
   useEffect(() => {
-    let ignore = false;
 
-    const getAllMetricIds = async () => {
+    const getMetricSummary = async () => {
 
-      await axios.get(`/api/urls/${urlId}`).then((res) => {
-        setClicks(res.data.clicks);
-        const metricIds = res.data.metrics;
-        getAllMetric(metricIds);
-        getMetricSummary(metricIds);
-      });
+      await axios
+        .get(`/api/urls/${urlId}/summary`)
+        .then((res) => {
+          let retData = res.data;
+          setClicks(retData.clicks);
+          setTopCountry(retData.topCountry);
+          setCountryCount(retData.countryCount);
+          getAllMetric(retData.metricIds);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
     };
 
-    if (!ignore) {
-      getAllMetricIds();
-    }
-    return () => {
-      ignore = true;
-    };
+    getMetricSummary();
   }, [urlId]);
 
   return (
