@@ -1,47 +1,11 @@
-import React, { useState, useEffect } from "react";
-import axios from "axios";
 import CardStats from "components/Cards/CardStats.js";
+import PropTypes from "prop-types";
 
-export default function HeaderDStats() {
-  const [totalClicks, setTotalClicks] = useState(0);
-  const [topLink, setTopLink] = useState("");
-  const [topCountry, setTopCountry] = useState("");
-
-  const callSummaryApi = () => {
-    getUrlSummary();
-    getMetricsSummary();
-  }
-
-  const getUrlSummary = async () => {
-    axios.defaults.baseURL = process.env.REACT_APP_BASE;
-    await axios
-      .get("/api/urls/all/summary")
-      .then((res) => {
-        setTotalClicks(res.data.totalClicks);
-        setTopLink(res.data.topLink);
-        getMetricsSummary();
-      });
-  };
-
-  const getMetricsSummary = async () => {
-    axios.defaults.baseURL = process.env.REACT_APP_BASE;
-    await axios
-      .get("/api/metrics/all/summary")
-      .then((res) => {
-        setTopCountry(res.data.topCountry);
-      });
-  };
-
-  useEffect(() => {
-    let ignore = false;
-
-    if (!ignore) {
-      callSummaryApi();
-    }
-    return () => {
-      ignore = true;
-    };
-  }, []);
+export default function HeaderDStats({
+  totalClicks,
+  topLink,
+  topCountry
+}) {
 
   return (
     <>
@@ -85,3 +49,15 @@ export default function HeaderDStats() {
     </>
   );
 }
+
+HeaderDStats.defaultProps = {
+  totalClicks: 0,
+  topLink: "",
+  topCountry: ""
+};
+
+HeaderDStats.propTypes = {
+  totalClicks: PropTypes.number,
+  topLink: PropTypes.string,
+  topCountry: PropTypes.string
+};
