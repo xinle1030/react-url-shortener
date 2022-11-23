@@ -7,11 +7,13 @@ import AdminNavbar from "components/Navbars/AdminNavbar.js";
 import HeaderRStats from "components/Headers/HeaderRStats.js";
 import CardTable from "components/Cards/CardTable";
 import CardLineChart from "components/Cards/CardLineChart";
+import CardDoughnutChart from "components/Cards/CardDoughnutChart";
 
 export default function Report() {
   const [linkTable, setLinkTable] = useState("");
   const [clicks, setClicks] = useState(0);
   const [topCountry, setTopCountry] = useState("");
+  const [countryCount, setCountryCount] = useState([]);
 
   const location = useLocation();
   const urlId = location.state.urlId;
@@ -43,7 +45,9 @@ export default function Report() {
           .join("&")}`
       )
       .then((res) => {
-        setTopCountry(res.data.topCountry);
+        let retData = res.data;
+        setTopCountry(retData.topCountry);
+        setCountryCount(retData.countryCount);
       })
       .catch((err) => {
         console.log(err);
@@ -86,6 +90,11 @@ export default function Report() {
         <div className="flex flex-wrap mt-4">
           <div className="w-full px-4">
             <CardLineChart />
+          </div>
+        </div>
+        <div className="flex flex-wrap mt-4">
+          <div className="w-full px-4">
+            <CardDoughnutChart countryCount={countryCount}/>
           </div>
         </div>
       </div>
