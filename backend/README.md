@@ -75,6 +75,22 @@ Redirect to original URL
 ### metrics.js
 
 ```http
+GET /api/metrics/all
+```
+
+**Response:**
+```
+{
+    [{
+      country: "string",
+      city: "string",
+      location: Point,
+      timestamp: Date
+      }]
+}
+```
+
+```http
 GET /api/metrics
 ```
 
@@ -83,28 +99,15 @@ GET /api/metrics
 | `metricIds`      | `Array of Object Ids` | Array of Object Ids for Metrics |
 
 **Response:**
-
 ```
 {
-    
+    [{
+      country: "string",
+      city: "string",
+      location: Point,
+      timestamp: Date
+      }]
 }
-```
-
-
-```http
-GET /api/metrics/summary
-```
-
-| Query            | Type                  | Description                     |
-| :--------------- | :-------------------- | :------------------------------ |
-| `metricIds`      | `Array of Object Ids` | Array of Object Ids for Metrics |
-
-```http
-GET /api/metrics/all
-```
-
-```http
-GET /api/metrics/all/summary
 ```
 
 ### short_urls.js
@@ -129,13 +132,63 @@ Content-Type: application/json
 
 ```
 
+**Response:**
+```
+{
+  origUrl: "string",
+  shortUrl: "string",
+  urlId: "string",
+  clicks: "integer",
+  date: "Date",
+  title: "string",
+  metrics: [Object]
+}
+```
+
 ### urls.js
 ```http
-GET /api/urls/all
+GET /api/urls/all/summary
+```
+**Response:**
+```
+{
+    totalClicks: "string",
+    topLink: "string",
+    topLinkClicks: "string",
+    topCountry: "string",
+    countryCount: [{"string", "integer"}],
+}
 ```
 
 ```http
-GET /api/urls/all/summary
+GET /api/urls/all
+```
+**Response:**
+```
+{
+    [{
+  origUrl: "string",
+  shortUrl: "string",
+  urlId: "string",
+  clicks: "integer",
+  date: "Date",
+  title: "string",
+  metrics: [Object]
+      }]
+}
+```
+
+```http
+GET /urls/:urlId/summary
+```
+**Response:**
+```
+{
+    clicks: "integer",
+    topCountry: "string",
+    countryCount: [{"string", "integer"}],
+    metricIds: [ObjectId],
+}
 ```
 
 ```http
@@ -146,10 +199,18 @@ GET /urls/:urlId
 | :--------    | :------- | :-------------- |
 | `urlId`      | `string` | Unique URL Code |
 
-```http
-GET /api/metrics/all/summary
+**Response:**
 ```
-
+{
+  origUrl: "string",
+  shortUrl: "string",
+  urlId: "string",
+  clicks: "integer",
+  date: "Date",
+  title: "string",
+  metrics: [Object]
+}
+```
 
 ## Module Details:
 The backend directory acts as a controller and holds the API endpoints of the application. It consists of two main functionalities:
