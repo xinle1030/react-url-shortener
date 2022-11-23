@@ -15,29 +15,29 @@ export default function HeaderDStats({
           <div>
             {/* Card stats */}
             <div className="flex flex-wrap">
-              <div className="w-full lg:w-6/12 xl:w-4/12 px-4">
+              <div className="w-full lg:w-6/12 xl:w-3/12 px-4">
                 <CardStats
                   statSubtitle="TOTAL CLICKS"
                   statTitle={totalClicks.toString()}
-                  // statDescripiron="Since last month"
+                  // statDescription="Since last month"
                   statIconName="far fa-chart-bar"
                   statIconColor="bg-red-500"
                 />
               </div>
-              <div className="w-full lg:w-6/12 xl:w-4/12 px-4">
+              <div className="w-full lg:w-6/12 xl:w-6/12 px-4">
                 <CardStats
                   statSubtitle="TOP LINK(S)"
                   statTitle={(topLink.length > 0) ? topLink : "-"}
-                  // statDescripiron="Since last week"
+                  // statDescription="Since last week"
                   statIconName="fas fa-chart-pie"
                   statIconColor="bg-orange-500"
                 />
               </div>
-              <div className="w-full lg:w-6/12 xl:w-4/12 px-4">
+              <div className="w-full lg:w-6/12 xl:w-3/12 px-4">
                 <CardStats
                   statSubtitle="TOP COUNTRY"
                   statTitle={(topCountry.length > 0) ? topCountry : "-"}
-                  // statDescripiron="Since yesterday"
+                  // statDescription="Since yesterday"
                   statIconName="fas fa-users"
                   statIconColor="bg-pink-500"
                 />
