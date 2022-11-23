@@ -77,7 +77,7 @@ router.get("/summary", async (req, res, next) => {
   return res.json(retData);
 });
 
-// Get all paths
+// Get all metrics
 router.get("/all", async (req, res, next) => {
   console.log("Get all metrics");
   await Metric.find({})
