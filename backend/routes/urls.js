@@ -2,6 +2,7 @@ import express from "express";
 import Url from "../models/Url.js";
 import dotenv from "dotenv";
 dotenv.config({ path: "../config/.env" });
+import {getAllMetricsSummary} from "./metrics.js";
 
 const router = express.Router();
 
@@ -24,7 +25,9 @@ router.get("/all/summary", async (req, res, next) => {
   let retData = {
     totalClicks: 0,
     topLink: "",
-    topLinkClicks: 0
+    topLinkClicks: 0,
+    topCountry: "",
+    countryCount: [],
   };
 
   // find totalClicks
@@ -42,6 +45,14 @@ router.get("/all/summary", async (req, res, next) => {
     retData.topLink = topUrl[0].shortUrl;
     retData.topLinkClicks = topUrl[0].clicks;
   }
+
+  // find top country
+  let allMetricsSummary = Promise.resolve(await getAllMetricsSummary());
+
+  retData.topCountry = (await allMetricsSummary).topCountry;
+  retData.countryCount = (await allMetricsSummary).countryCount;
+
+  console.log(retData);
 
   return res.json(retData);
 });
