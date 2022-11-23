@@ -6,6 +6,20 @@ import ObjectId from "mongodb";
 
 const router = express.Router();
 
+// Get all metrics
+router.get("/all", async (req, res, next) => {
+  console.log("Get all metrics");
+  await Metric.find({})
+    .then((data) => {
+      console.log("Data: ", data);
+      res.json(data);
+    })
+    .catch((error) => {
+      console.log("error: ", error);
+    });
+});
+
+// Get certain metrics by ids
 router.get("/", async (req, res, next) => {
   console.log("Get certain metrics");
 
@@ -22,15 +36,15 @@ router.get("/", async (req, res, next) => {
     });
 });
 
-router.get("/summary", async (req, res, next) => {
-  console.log("Get certain metrics summary");
+
+export const getMetricsSummaryByIds = async (metricIds) => {
   let retData = {
     topCountry: "",
     countryCount: [],
   };
-  let ids = req.query.metricIds;
-  if (ids) {
-    let objectIds = ids.map((id) => ObjectId.ObjectId(id));
+
+  if (metricIds) {
+    let objectIds = metricIds.map((id) => ObjectId.ObjectId(id));
 
     await Metric.aggregate([
       { $match: { _id: { $in: objectIds } } },
@@ -74,21 +88,8 @@ router.get("/summary", async (req, res, next) => {
     });
   }
 
-  return res.json(retData);
-});
-
-// Get all metrics
-router.get("/all", async (req, res, next) => {
-  console.log("Get all metrics");
-  await Metric.find({})
-    .then((data) => {
-      console.log("Data: ", data);
-      res.json(data);
-    })
-    .catch((error) => {
-      console.log("error: ", error);
-    });
-});
+  return retData;
+};
 
 export const getAllMetricsSummary = async () => {
   let retData = {

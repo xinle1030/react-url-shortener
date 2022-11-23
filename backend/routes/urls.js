@@ -2,7 +2,7 @@ import express from "express";
 import Url from "../models/Url.js";
 import dotenv from "dotenv";
 dotenv.config({ path: "../config/.env" });
-import {getAllMetricsSummary} from "./metrics.js";
+import {getAllMetricsSummary, getMetricsSummaryByIds} from "./metrics.js";
 
 const router = express.Router();
 
@@ -73,5 +73,43 @@ router.get("/:urlId", async (req, res) => {
     res.status(500).json("Server Error");
   }
 });
+
+router.get("/:urlId/summary", async (req, res) => {
+  console.log("Get certain url summary");
+
+  let retData = {
+    clicks: 0,
+    topCountry: "",
+    countryCount: [],
+    metricIds: []
+  };
+
+  try {
+    const url = await Url.findOne({ urlId: req.params.urlId });
+    if (url) {
+
+      retData.clicks = url.clicks;
+
+      let metricIds = url.metrics;
+
+      retData.metricIds = metricIds;
+
+      let metricsSummary = Promise.resolve(await getMetricsSummaryByIds(metricIds));
+
+      retData.topCountry = (await metricsSummary).topCountry;
+      retData.countryCount = (await metricsSummary).countryCount;
+      
+    } else {
+      res.status(404).json("Not found");
+    }
+  } catch (err) {
+    console.log(err);
+    res.status(500).json("Server Error");
+  }
+
+  return res.json(retData);
+});
+
+
 
 export default router;
