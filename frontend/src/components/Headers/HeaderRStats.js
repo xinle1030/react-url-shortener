@@ -22,8 +22,8 @@ export default function HeaderRStats({
                 <CardStats
                   statSubtitle="CLICKS"
                   statTitle={clicks.toString()}
-                  // statDescripiron="Since last month"
-                  statIconName="far fa-chart-bar"
+                  // statDescription="Since last month"
+                  statIconName="far fa-chart-bar"  
                   statIconColor="bg-red-500"
                 />
               </div>
@@ -31,7 +31,7 @@ export default function HeaderRStats({
                 <CardStats
                   statSubtitle="TOP COUNTRY"
                   statTitle={(topCountry.length > 0) ? topCountry : "-"}
-                  // statDescripiron="Since yesterday"
+                  // statDescription="Since yesterday"
                   statIconName="fas fa-users"
                   statIconColor="bg-pink-500"
                 />
