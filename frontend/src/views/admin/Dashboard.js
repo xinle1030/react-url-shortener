@@ -43,15 +43,9 @@ export default function Dashboard() {
   };
 
   useEffect(() => {
-    let ignore = false;
 
-    if (!ignore) {
-      callSummaryApi();
-    }
-    return () => {
-      ignore = true;
-    };
-  });
+    callSummaryApi();
+  }, []);
 
   return (
     <>
