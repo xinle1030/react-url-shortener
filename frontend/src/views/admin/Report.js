@@ -6,7 +6,6 @@ import axios from "axios";
 import AdminNavbar from "components/Navbars/AdminNavbar.js";
 import HeaderRStats from "components/Headers/HeaderRStats.js";
 import CardTable from "components/Cards/CardTable";
-import CardLineChart from "components/Cards/CardLineChart";
 import CardDoughnutChart from "components/Cards/CardDoughnutChart";
 
 export default function Report() {
@@ -80,21 +79,16 @@ export default function Report() {
     <>
       <AdminNavbar title="Report" />
       {/* Header */}
-      <HeaderRStats clicks={clicks} topCountry={topCountry}/>
+      <HeaderRStats clicks={clicks} topCountry={topCountry} />
       <div className="px-4 md:px-10 mx-auto w-full -m-24">
         <div className="flex flex-wrap">
           <div className="w-full px-4">
-            <CardTable linkTable={linkTable}/>
+            <CardTable linkTable={linkTable} />
           </div>
         </div>
         <div className="flex flex-wrap mt-4">
           <div className="w-full px-4">
-            <CardLineChart />
-          </div>
-        </div>
-        <div className="flex flex-wrap mt-4">
-          <div className="w-full px-4">
-            <CardDoughnutChart countryCount={countryCount}/>
+            <CardDoughnutChart countryCount={countryCount} />
           </div>
         </div>
       </div>
