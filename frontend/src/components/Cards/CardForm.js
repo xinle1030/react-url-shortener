@@ -4,6 +4,9 @@ import { useHistory } from "react-router-dom";
 // components
 
 export default function CardForm() {
+
+  axios.defaults.baseURL = "http://localhost:3333";
+
   const [url, setUrl] = useState("");
   const [title, setTitle] = useState("");
   let history = useHistory();
@@ -14,7 +17,7 @@ export default function CardForm() {
     console.log(url);
     console.log(title);
 
-    axios.defaults.baseURL = process.env.REACT_APP_BASE;
+    
     await axios
       .post("/api/short", {
         origUrl: url,

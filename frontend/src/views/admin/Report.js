@@ -9,6 +9,8 @@ import CardTable from "components/Cards/CardTable";
 import CardDoughnutChart from "components/Cards/CardDoughnutChart";
 
 export default function Report() {
+  axios.defaults.baseURL = "http://localhost:3333";
+
   const [linkTable, setLinkTable] = useState("");
   const [clicks, setClicks] = useState(0);
   const [topCountry, setTopCountry] = useState("");
@@ -18,7 +20,6 @@ export default function Report() {
   const urlId = location.state.urlId;
 
   const getAllMetric = async (metricIds) => {
-    axios.defaults.baseURL = process.env.REACT_APP_BASE;
 
     await axios
       .get(
@@ -35,7 +36,6 @@ export default function Report() {
   };
 
   const getMetricSummary = async (metricIds) => {
-    axios.defaults.baseURL = process.env.REACT_APP_BASE;
 
     await axios
       .get(
@@ -57,7 +57,6 @@ export default function Report() {
     let ignore = false;
 
     const getAllMetricIds = async () => {
-      axios.defaults.baseURL = process.env.REACT_APP_BASE;
 
       await axios.get(`/api/urls/${urlId}`).then((res) => {
         setClicks(res.data.clicks);

@@ -8,6 +8,9 @@ import CardPageVisits from "components/Cards/CardPageVisits.js";
 import CardDoughnutChart from "components/Cards/CardDoughnutChart";
 
 export default function Dashboard() {
+
+  axios.defaults.baseURL = "http://localhost:3333";
+
   const [totalClicks, setTotalClicks] = useState(0);
   const [topLink, setTopLink] = useState("");
   const [topCountry, setTopCountry] = useState("");
@@ -19,7 +22,7 @@ export default function Dashboard() {
   };
 
   const getUrlSummary = async () => {
-    axios.defaults.baseURL = process.env.REACT_APP_BASE;
+    
     await axios.get("/api/urls/all/summary").then((res) => {
       setTotalClicks(res.data.totalClicks);
       setTopLink(res.data.topLink);
@@ -28,7 +31,7 @@ export default function Dashboard() {
   };
 
   const getMetricsSummary = async () => {
-    axios.defaults.baseURL = process.env.REACT_APP_BASE;
+    
     await axios.get("/api/metrics/all/summary").then((res) => {
       let retData = res.data;
       setTopCountry(retData.topCountry);

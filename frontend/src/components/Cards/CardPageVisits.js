@@ -5,6 +5,9 @@ import { useHistory } from "react-router-dom";
 // components
 
 export default function CardPageVisits() {
+
+  axios.defaults.baseURL = "http://localhost:3333";
+
   const [allUrls, setAllUrls] = useState("");
   let history = useHistory();
 
@@ -18,7 +21,7 @@ export default function CardPageVisits() {
   }
 
   const getAllUrls = async () => {
-    axios.defaults.baseURL = process.env.REACT_APP_BASE;
+    
     axios.get("/api/urls/all").then((res) => setAllUrls(JSON.stringify(res.data)));
   };
 
