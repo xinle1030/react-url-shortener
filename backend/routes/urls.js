@@ -21,8 +21,10 @@ router.get("/all/summary", async (req, res, next) => {
   await Url.aggregate([
     { $group: { _id: null, totalClicks: { $sum: "$clicks" } } },
   ]).then((data) => {
-    console.log(data);
-    retData.totalClicks = data[0].totalClicks;
+    if (data && data.length > 0){
+      console.log(data);
+      retData.totalClicks = data[0].totalClicks;
+    }
   });
 
   // find topUrl
