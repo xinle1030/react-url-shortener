@@ -30,7 +30,7 @@ export default function HeaderRStats({
               <div className="w-full lg:w-6/12 xl:w-6/12 px-4">
                 <CardStats
                   statSubtitle="TOP COUNTRY"
-                  statTitle={(topCountry.length > 0) ? topCountry : "-"}
+                  statTitle={(topCountry && topCountry.length > 0) ? topCountry : "-"}
                   // statDescription="Since yesterday"
                   statIconName="fas fa-users"
                   statIconColor="bg-pink-500"
