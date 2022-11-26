@@ -24,11 +24,13 @@ router.get("/", async (req, res, next) => {
   console.log("Get certain metrics");
 
   let objectIds = req.query.metricIds;
+  console.log(objectIds);
 
   await Metric.find({
     _id: { $in: objectIds },
   })
     .then((data) => {
+      console.log(data);
       res.json(data);
     })
     .catch((error) => {
