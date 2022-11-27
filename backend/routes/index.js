@@ -5,6 +5,10 @@ import Metric from "../models/Metric.js";
 
 const router = express.Router();
 
+router.get("/", async (req, res) => {
+  res.send("Welcome to Url Shortener API!");
+});
+
 // redirect to original url using short url
 router.get("/:urlId", async (req, res) => {
 
