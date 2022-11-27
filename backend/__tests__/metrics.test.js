@@ -3,9 +3,11 @@ import supertest from "supertest"; // supertest is a framework that allows to ea
 import { connect, close, clear } from "../config/test_db.js";
 import {
   seedUrl,
+  urlSample,
+  moreUrlSamples,
+  metrics1,
+  metrics2,
   seedMetric,
-  seedManyUrls,
-  seedManyMetrics,
   expectedMetricSummaryById,
   expectedMetricSummary,
 } from "../test-setup/seed.js";
@@ -22,8 +24,8 @@ afterEach(async () => await clear());
 afterAll(async () => await close());
 
 test("GET /all", async () => {
-  let seededUrl = await seedUrl();
-  let seededMetrics = await seedMetric(seededUrl);
+  let seededUrl = await seedUrl(urlSample);
+  let seededMetrics = await seedMetric(seededUrl, metrics1);
 
   await agent
     .get(baseUrl + "/all")
@@ -44,8 +46,8 @@ test("GET /all", async () => {
 });
 
 test("GET /", async () => {
-  let seededUrl = await seedUrl();
-  let seededMetrics = await seedMetric(seededUrl);
+  let seededUrl = await seedUrl(urlSample);
+  let seededMetrics = await seedMetric(seededUrl, metrics1);
 
   let metricIds = seededMetrics.map((metric) => metric.id);
 
@@ -69,8 +71,8 @@ test("GET /", async () => {
 });
 
 test("Get Metric Summary by Ids", async () => {
-  let seededUrl = await seedUrl();
-  let seededMetrics = await seedMetric(seededUrl);
+  let seededUrl = await seedUrl(urlSample);
+  let seededMetrics = await seedMetric(seededUrl, metrics1);
 
   let metricIds = seededMetrics.map((metric) => metric.id);
 
@@ -80,12 +82,12 @@ test("Get Metric Summary by Ids", async () => {
 });
 
 test("Get All Metric Summary", async () => {
-  let seededUrls = await seedManyUrls();
-  let seededMetrics = await seedManyMetrics(seededUrls);
 
-  let metricIds = seededMetrics.map((metric) => metric.id);
+  let seededUrls = await seedUrl(moreUrlSamples);
+  let seededMetrics1 = await seedMetric(seededUrls[0], metrics1);
+  let seededMetrics2 = await seedMetric(seededUrls[1], metrics2);
 
-  let metricsSummary = await getAllMetricsSummary(metricIds);
+  let metricsSummary = await getAllMetricsSummary();
 
   expect(metricsSummary).toStrictEqual(expectedMetricSummary);
 });
