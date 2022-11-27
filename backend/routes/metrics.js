@@ -2,7 +2,8 @@ import express from "express";
 import Metric from "../models/Metric.js";
 import dotenv from "dotenv";
 dotenv.config({ path: "../config/.env" });
-import ObjectId from "mongodb";
+import mongooseUtil from 'mongoose';
+const ObjectId = mongooseUtil.Types.ObjectId;
 
 const router = express.Router();
 
@@ -46,7 +47,8 @@ export const getMetricsSummaryByIds = async (metricIds) => {
   };
 
   if (metricIds) {
-    let objectIds = metricIds.map((id) => ObjectId.ObjectId(id));
+
+    let objectIds = metricIds.map((id) => new ObjectId(id));
 
     await Metric.aggregate([
       { $match: { _id: { $in: objectIds } } },
@@ -90,6 +92,8 @@ export const getMetricsSummaryByIds = async (metricIds) => {
     });
   }
 
+  console.log(retData)
+
   return retData;
 };
 
@@ -124,8 +128,8 @@ export const getAllMetricsSummary = async () => {
     },
     {
       $sort: {
-        "_id.country": 1,
         count: -1,
+        "_id.country": 1,
       },
     },
   ]).then((data) => {
