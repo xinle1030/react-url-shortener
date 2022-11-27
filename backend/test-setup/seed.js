@@ -60,10 +60,69 @@ export async function seedMetric(seededUrl) {
   return seededMetrics;
 }
 
+export async function seedManyUrls() {
+
+  const seededUrl1 = seedUrl();
+
+  const urlId = nanoid(15);
+
+  let url = [
+    {
+      origUrl:
+        "https://www.lazada.com.my/products/hot-swappable-royal-kludge-rk61-real-mechanical-keyboard-gaming-bluetooth-wireless-60-rgb-rk-61-61-keys-3-mode-keychron-k12-i1963348553-s10040430686.html?clickTrackInfo=undefined&search=1&source=search&spm=a2o4k.searchlist.list.i40.673b46d8DOCQNS",
+      shortUrl: `http://localhost:3333/${urlId}`,
+      urlId: urlId,
+      title: "lazada keyboard",
+    },
+  ];
+
+  const seededUrl2 = await Url.create(url);
+
+  return [seededUrl1, seededUrl2];
+}
+
+export async function seedManyMetrics(seededUrls) {
+
+  let seededMetrics1 = seedMetric(seededUrls[0]);
+
+  let metrics2 = [
+    {
+      urlId: seededUrls[1].ObjectId,
+      country: "Philippines",
+      city: "Manila",
+      location: { type: "Point", coordinates: [43.6532, 43.6532] },
+      timestamp: new Date().setDate(new Date().getDate() - 16),
+    },
+  ];
+
+  const seededMetrics2 = await Metric.insertMany(metrics2);
+
+  if (seededMetrics2) {
+
+    Url.updateOne(
+      {
+        urlId: seededUrls[1],
+      },
+      { $inc: { clicks: metrics2.length }, $push: { metrics: seededMetrics2 } }
+    );
+  }
+
+  return [seededMetrics1, seededMetrics2];
+}
+
+export const expectedMetricSummaryById = {
+  topCountry: "Canada",
+  countryCount: [
+    { country: "Canada", count: 2 },
+    { country: "Malaysia", count: 1 },
+  ],
+};
+
 export const expectedMetricSummary = {
   topCountry: "Canada",
   countryCount: [
     { country: "Canada", count: 2 },
     { country: "Malaysia", count: 1 },
+    { country: "Philippines", count: 1 },
   ],
 };
