@@ -6,6 +6,11 @@ MongoDB is used as the database.
 
 The long URL, short URL, and other details such as metrics for each visit to the short url are stored in the database. When a long URL that is already stored in the database is passed again, it returns the older shortened URL. With each visit of url, the metrics are stored in the mongodb as well.
 
+Automated testing for backend APIs are written using Jest.
+
+## Deployment
+- Backend (using Heroku): https://url-shortener-slink.herokuapp.com/
+
 #### Required packages and their respective versions are specified in the package.json file under ./backend directory for installation
 
 ### Setting up the mongodb
