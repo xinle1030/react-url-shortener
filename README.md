@@ -28,6 +28,15 @@ The long URL, short URL, and other details such as metrics for each visit to the
 - (If not) Run in terminal `npm start`
 - Navigate to https://localhost:3333
 
+### Run Test Suite
+- Clone the project
+- Install NodeJS **LTS** version from <a href="https://nodejs.org/en/download/">NodeJs Official Page</a>
+- Download the product on this page
+- Unzip the downloaded file to a folder in your computer
+- Open Terminal
+- Go to your file project - backend folder (where you’ve unzipped the product)
+- Run in terminal `npm test`
+
 Details of this module can be found in the readme in ./backend directory.
 
 ## Frontend

@@ -33,11 +33,20 @@ The long URL, short URL, and other details such as metrics for each visit to the
 - Download the product on this page
 - Unzip the downloaded file to a folder in your computer
 - Open Terminal
-- Go to your file project - frontend folder (where you’ve unzipped the product)
+- Go to your file project - backend folder (where you’ve unzipped the product)
 - (If you are on a linux based terminal) Simply run `npm run install:clean`
 - (If not) Run in terminal `npm install`
 - (If not) Run in terminal `npm start`
 - Navigate to https://localhost:3333
+
+### Run Test Suite
+- Clone the project
+- Install NodeJS **LTS** version from <a href="https://nodejs.org/en/download/">NodeJs Official Page</a>
+- Download the product on this page
+- Unzip the downloaded file to a folder in your computer
+- Open Terminal
+- Go to your file project - backend folder (where you’ve unzipped the product)
+- Run in terminal `npm test`
 
 ## Environment Variables
 
@@ -47,6 +56,7 @@ To run this project, you will need to add the following environment variables to
 | :----------------------------- | :----------------------------------------------------------------------------------------- |
 | `PORT`                         | Port Number                                                                                |
 | `MONGO_URI`                    | Mongodb URI to connect the application to mongodb cluster                                  |
+| `MONGO_URI_TEST`               | Mongodb URI to connect the application to mongodb cluster for testing                      |
 | `BASE`                         | Base URL for Shortening (such as http://localhost:3333 if you running locally)             |
 | `ABSTRACT_IP_GEO_API_KEY`      | API Key for Abstract IP Geolocation from `https://app.abstractapi.com/api/ip-geolocation/` |
 
@@ -218,3 +228,5 @@ The backend directory acts as a controller and holds the API endpoints of the ap
 1. Create New Link: Take a long URL and convert it to a shorter URL
 
 2. For each link, it track the metrics such as number of clicks, originating geolocation and timestamp of each visit to a Short URL
+
+3. Automated testing are written for APIs using Jest and can be found under `__test__` as well as `test-setup` folder. Test database is connected when running the tests locally and further details can be found at `./config/test_db.js`.
