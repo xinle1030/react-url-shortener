@@ -145,3 +145,13 @@ export const expectedUrlSummary = {
     { country: "Philippines", count: 1 },
   ],
 };
+
+export const expectedUrlSummaryById = 
+{
+  clicks: 3,
+  topCountry: "Canada",
+  countryCount: [
+    { country: "Canada", count: 2 },
+    { country: "Malaysia", count: 1 },
+  ],
+};
