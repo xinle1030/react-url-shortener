@@ -6,6 +6,10 @@ This is a monorepo containing 2 different projects as follows:
 
 This application is known as "S-link", carrying the meaning of the creation of Shorter Link - Sleeker Link.
 
+## Deployment
+- Backend (using Heroku): https://url-shortener-slink.herokuapp.com/
+- Frontend (using Netlify): https://slink-sleeker-link.netlify.app/
+
 ## Backend
 This is an URL shortener service like bit.ly and tinyurl.com.
 The API service can take a long URL and convert it to a shorter URL as well as to provide a simple usage report tracking the number of clicks, originating geolocation and timestamp of each visit to a Short URL.
