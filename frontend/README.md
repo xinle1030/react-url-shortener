@@ -2,6 +2,9 @@
 
 A front end application built on reactjs and tailwind CSS that provides access to back-end functionalities for url shortener by calling back-end APIs.
 
+## Deployment
+- Frontend (using Netlify): https://slink-sleeker-link.netlify.app/
+
 ## Software Requirements:
 - React 17.0.1 (64-bit)
 
