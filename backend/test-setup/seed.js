@@ -59,3 +59,11 @@ export async function seedMetric(seededUrl) {
 
   return seededMetrics;
 }
+
+export const expectedMetricSummary = {
+  topCountry: "Canada",
+  countryCount: [
+    { country: "Canada", count: 2 },
+    { country: "Malaysia", count: 1 },
+  ],
+};
