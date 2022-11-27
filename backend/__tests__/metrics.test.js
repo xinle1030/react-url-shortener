@@ -4,7 +4,10 @@ import { connect, close, clear } from "../config/test_db.js";
 import {
   seedUrl,
   seedMetric,
-  expectedMetricSummary,
+  seedManyUrls,
+  seedManyMetrics,
+  expectedMetricSummaryById,
+  expectedMetricSummary
 } from "../test-setup/seed.js";
 import {
   getMetricsSummaryByIds,
@@ -78,8 +81,16 @@ test("Get Metric Summary by Ids", async () => {
 
   let metricsSummary = await getMetricsSummaryByIds(metricIds);
 
-  console.log(metricsSummary);
-  console.log(expectedMetricSummary);
+  expect(metricsSummary).toStrictEqual(expectedMetricSummaryById);
+});
+
+test("Get All Metric Summary", async () => {
+  let seededUrls = await seedManyUrls();
+  let seededMetrics = await seedManyMetrics(seededUrls);
+
+  let metricIds = seededMetrics.map((metric) => metric.id);
+1
+  let metricsSummary = await getAllMetricsSummary(metricIds);
 
   expect(metricsSummary).toStrictEqual(expectedMetricSummary);
 });
