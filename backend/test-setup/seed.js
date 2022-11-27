@@ -2,112 +2,119 @@ import Metric from "../models/Metric.js";
 import Url from "../models/Url.js";
 import { nanoid } from "nanoid";
 
-export async function seedUrl() {
-  const urlId = nanoid(15);
-
-  let url = {
+export const urlSample = [
+  {
     origUrl:
       "https://shopee.com.my/Asus-Zenbook-14-UX425E-AKI839WS-I5-1135G7-8GB-Ram-512GB-M.2-Iris-Xe-Graphics-14-FHD-Office-i.475306177.9176347026?sp_atk=d905691d-8ad5-4ffc-ad17-ca89e8983d58&xptdk=d905691d-8ad5-4ffc-ad17-ca89e8983d58",
-    shortUrl: "http://localhost:3333/-7NGNMc3-UfmqYu",
-    urlId: urlId,
     title: "shopee asus zenbook",
-  };
+  },
+];
 
-  const seededUrl = await Url.create(url);
+export const moreUrlSamples = [
+  {
+    origUrl:
+      "https://shopee.com.my/Asus-Zenbook-14-UX425E-AKI839WS-I5-1135G7-8GB-Ram-512GB-M.2-Iris-Xe-Graphics-14-FHD-Office-i.475306177.9176347026?sp_atk=d905691d-8ad5-4ffc-ad17-ca89e8983d58&xptdk=d905691d-8ad5-4ffc-ad17-ca89e8983d58",
+    title: "shopee asus zenbook",
+  },
+  {
+    origUrl:
+      "https://www.lazada.com.my/products/hot-swappable-royal-kludge-rk61-real-mechanical-keyboard-gaming-bluetooth-wireless-60-rgb-rk-61-61-keys-3-mode-keychron-k12-i1963348553-s10040430686.html?clickTrackInfo=undefined&search=1&source=search&spm=a2o4k.searchlist.list.i40.673b46d8DOCQNS",
+    title: "lazada keyboard",
+  },
+];
 
-  return seededUrl;
+export const metrics1 = [
+  {
+    country: "Malaysia",
+    city: "Subang Jaya",
+    location: { type: "Point", coordinates: [101.592, 3.0537] },
+    timestamp: Date.now,
+  },
+  {
+    country: "Canada",
+    city: "Peterborough",
+    location: { type: "Point", coordinates: [78.32, 44.3047] },
+    timestamp: new Date().setDate(new Date().getDate() - 3),
+  },
+  {
+    country: "Canada",
+    city: "Toronto",
+    location: { type: "Point", coordinates: [43.6532, 43.6532] },
+    timestamp: new Date().setDate(new Date().getDate() - 7),
+  },
+];
+
+export const metrics2 = [
+  {
+    country: "Philippines",
+    city: "Manila",
+    location: { type: "Point", coordinates: [43.6532, 43.6532] },
+    timestamp: new Date().setDate(new Date().getDate() - 16),
+  },
+];
+
+export async function seedUrl(urlArr) {
+  let retUrlArr = [];
+
+  for (let i in urlArr) {
+    let currentUrl = urlArr[i];
+
+    let urlId = nanoid(15);
+
+    let url = {
+      origUrl: currentUrl.origUrl,
+      shortUrl: `http://localhost:3333/${urlId}`,
+      urlId: urlId,
+      title: currentUrl.title,
+    };
+
+    retUrlArr.push(url);
+  }
+
+  const seededUrl = await Url.insertMany(retUrlArr);
+
+  if (seededUrl.length == 1) {
+    return seededUrl[0];
+  } else {
+    return seededUrl;
+  }
 }
 
-export async function seedMetric(seededUrl) {
+export async function seedMetric(seededUrl, metricArr) {
+  const urlObjId = seededUrl.ObjectId;
   const urlId = seededUrl.urlId;
 
-  let metrics = [
-    {
-      urlId: seededUrl.ObjectId,
-      country: "Malaysia",
-      city: "Subang Jaya",
-      location: { type: "Point", coordinates: [101.592, 3.0537] },
-      timestamp: Date.now,
-    },
-    {
-      urlId: seededUrl.ObjectId,
-      country: "Canada",
-      city: "Peterborough",
-      location: { type: "Point", coordinates: [78.32, 44.3047] },
-      timestamp: new Date().setDate(new Date().getDate() - 3),
-    },
-    {
-      urlId: seededUrl.ObjectId,
-      country: "Canada",
-      city: "Toronto",
-      location: { type: "Point", coordinates: [43.6532, 43.6532] },
-      timestamp: new Date().setDate(new Date().getDate() - 7),
-    },
-  ];
+  metricArr.forEach((metric) => (metric.urlId = urlObjId));
 
-  const seededMetrics = await Metric.insertMany(metrics);
+  const seededMetrics = await Metric.insertMany(metricArr);
 
   if (seededMetrics) {
-    // const resolvedMetrics = Promise.resolve(await seedMetrics);
-    Url.updateOne(
+    await Url.updateOne(
       {
         urlId: urlId,
       },
-      { $inc: { clicks: metrics.length }, $push: { metrics: seededMetrics } }
+      {
+        $inc: { clicks: seededMetrics.length },
+        $push: { metrics: seededMetrics },
+      }
     );
   }
 
   return seededMetrics;
 }
 
-export async function seedManyUrls() {
+export async function findTopLink() {
+  let topLink = "";
 
-  const seededUrl1 = seedUrl();
+  let topUrl = await Url.find({}, { shortUrl: 1 })
+    .sort({ clicks: -1 })
+    .limit(1);
 
-  const urlId = nanoid(15);
-
-  let url = [
-    {
-      origUrl:
-        "https://www.lazada.com.my/products/hot-swappable-royal-kludge-rk61-real-mechanical-keyboard-gaming-bluetooth-wireless-60-rgb-rk-61-61-keys-3-mode-keychron-k12-i1963348553-s10040430686.html?clickTrackInfo=undefined&search=1&source=search&spm=a2o4k.searchlist.list.i40.673b46d8DOCQNS",
-      shortUrl: `http://localhost:3333/${urlId}`,
-      urlId: urlId,
-      title: "lazada keyboard",
-    },
-  ];
-
-  const seededUrl2 = await Url.create(url);
-
-  return [seededUrl1, seededUrl2];
-}
-
-export async function seedManyMetrics(seededUrls) {
-
-  let seededMetrics1 = seedMetric(seededUrls[0]);
-
-  let metrics2 = [
-    {
-      urlId: seededUrls[1].ObjectId,
-      country: "Philippines",
-      city: "Manila",
-      location: { type: "Point", coordinates: [43.6532, 43.6532] },
-      timestamp: new Date().setDate(new Date().getDate() - 16),
-    },
-  ];
-
-  const seededMetrics2 = await Metric.insertMany(metrics2);
-
-  if (seededMetrics2) {
-
-    Url.updateOne(
-      {
-        urlId: seededUrls[1],
-      },
-      { $inc: { clicks: metrics2.length }, $push: { metrics: seededMetrics2 } }
-    );
+  if (topUrl.length > 0) {
+    topLink = topUrl[0].shortUrl;
   }
 
-  return [seededMetrics1, seededMetrics2];
+  return topLink;
 }
 
 export const expectedMetricSummaryById = {
@@ -119,6 +126,18 @@ export const expectedMetricSummaryById = {
 };
 
 export const expectedMetricSummary = {
+  topCountry: "Canada",
+  countryCount: [
+    { country: "Canada", count: 2 },
+    { country: "Malaysia", count: 1 },
+    { country: "Philippines", count: 1 },
+  ],
+};
+
+export const expectedUrlSummary = {
+  totalClicks: 4,
+  topLink: "",
+  topLinkClicks: 3,
   topCountry: "Canada",
   countryCount: [
     { country: "Canada", count: 2 },
