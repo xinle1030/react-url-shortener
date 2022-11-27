@@ -9,7 +9,8 @@ import CardTable from "components/Cards/CardTable";
 import CardDoughnutChart from "components/Cards/CardDoughnutChart";
 
 export default function Report() {
-  axios.defaults.baseURL = "http://localhost:3333";
+  // axios.defaults.baseURL = "http://localhost:3333";
+  axios.defaults.baseURL = "https://url-shortener-slink.herokuapp.com";
 
   const [linkTable, setLinkTable] = useState("");
   const [clicks, setClicks] = useState(0);

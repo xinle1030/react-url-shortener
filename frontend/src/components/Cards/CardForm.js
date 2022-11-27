@@ -5,7 +5,8 @@ import { useHistory } from "react-router-dom";
 
 export default function CardForm() {
 
-  axios.defaults.baseURL = "http://localhost:3333";
+  // axios.defaults.baseURL = "http://localhost:3333";
+  axios.defaults.baseURL = "https://url-shortener-slink.herokuapp.com";
 
   const [url, setUrl] = useState("");
   const [title, setTitle] = useState("");

@@ -6,7 +6,8 @@ import { useHistory } from "react-router-dom";
 
 export default function CardPageVisits() {
 
-  axios.defaults.baseURL = "http://localhost:3333";
+  // axios.defaults.baseURL = "http://localhost:3333";
+  axios.defaults.baseURL = "https://url-shortener-slink.herokuapp.com";
 
   const [allUrls, setAllUrls] = useState("");
   let history = useHistory();
