@@ -1,8 +1,9 @@
 import express from "express";
 import Url from "../models/Url.js";
+import Metric from "../models/Metric.js";
 import dotenv from "dotenv";
 dotenv.config({ path: "../config/.env" });
-import {getAllMetricsSummary, getMetricsSummaryByIds} from "./metrics.js";
+import { getAllMetricsSummary, getMetricsSummaryByIds } from "./metrics.js";
 
 const router = express.Router();
 
@@ -21,14 +22,16 @@ router.get("/all/summary", async (req, res, next) => {
   await Url.aggregate([
     { $group: { _id: null, totalClicks: { $sum: "$clicks" } } },
   ]).then((data) => {
-    if (data && data.length > 0){
+    if (data && data.length > 0) {
       console.log(data);
       retData.totalClicks = data[0].totalClicks;
     }
   });
 
   // find topUrl
-  let topUrl = await Url.find({}, { shortUrl: 1, clicks: 1 }).sort({ clicks: -1 }).limit(1);
+  let topUrl = await Url.find({}, { shortUrl: 1, clicks: 1 })
+    .sort({ clicks: -1 })
+    .limit(1);
 
   if (topUrl.length > 0) {
     retData.topLink = topUrl[0].shortUrl;
@@ -68,24 +71,24 @@ router.get("/:urlId/summary", async (req, res) => {
     clicks: 0,
     topCountry: "",
     countryCount: [],
-    metricIds: []
+    metricIds: [],
   };
 
   try {
     const url = await Url.findOne({ urlId: req.params.urlId });
     if (url) {
-
       retData.clicks = url.clicks;
 
       let metricIds = url.metrics;
 
       retData.metricIds = metricIds;
 
-      let metricsSummary = Promise.resolve(await getMetricsSummaryByIds(metricIds));
+      let metricsSummary = Promise.resolve(
+        await getMetricsSummaryByIds(metricIds)
+      );
 
       retData.topCountry = (await metricsSummary).topCountry;
       retData.countryCount = (await metricsSummary).countryCount;
-      
     } else {
       res.status(404).json("Not found");
     }

@@ -2,7 +2,7 @@ import express from "express";
 import Metric from "../models/Metric.js";
 import dotenv from "dotenv";
 dotenv.config({ path: "../config/.env" });
-import mongooseUtil from 'mongoose';
+import mongooseUtil from "mongoose";
 const ObjectId = mongooseUtil.Types.ObjectId;
 
 const router = express.Router();
@@ -47,7 +47,6 @@ export const getMetricsSummaryByIds = async (metricIds) => {
   };
 
   if (metricIds) {
-
     let objectIds = metricIds.map((id) => new ObjectId(id));
 
     await Metric.aggregate([
@@ -92,7 +91,7 @@ export const getMetricsSummaryByIds = async (metricIds) => {
     });
   }
 
-  console.log(retData)
+  console.log(retData);
 
   return retData;
 };
