@@ -7,7 +7,7 @@ import {
   seedManyUrls,
   seedManyMetrics,
   expectedMetricSummaryById,
-  expectedMetricSummary
+  expectedMetricSummary,
 } from "../test-setup/seed.js";
 import {
   getMetricsSummaryByIds,
@@ -15,7 +15,7 @@ import {
 } from "../routes/metrics.js";
 
 const agent = supertest.agent(app);
-let baseUrl = "/api/metrics/";
+let baseUrl = "/api/metrics";
 
 beforeAll(async () => await connect());
 afterEach(async () => await clear());
@@ -30,11 +30,6 @@ test("GET /all", async () => {
     .expect(200)
     .then((response) => {
       expect(response.body.length).toBe(seededMetrics.length);
-
-      // expect(response.body[0]).toHaveProperty("country");
-      // expect(response.body[0]).toHaveProperty("city");
-      // expect(response.body[0]).toHaveProperty("location");
-      // expect(response.body[0]).toHaveProperty("timestamp");
 
       // Check data
       for (let i in seededMetrics) {
@@ -89,7 +84,7 @@ test("Get All Metric Summary", async () => {
   let seededMetrics = await seedManyMetrics(seededUrls);
 
   let metricIds = seededMetrics.map((metric) => metric.id);
-1
+
   let metricsSummary = await getAllMetricsSummary(metricIds);
 
   expect(metricsSummary).toStrictEqual(expectedMetricSummary);
