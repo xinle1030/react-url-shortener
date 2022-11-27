@@ -105,8 +105,6 @@ router.get("/:urlId", async (req, res) => {
   console.log("Get certain url");
   try {
     const url = await Url.findOne({ urlId: req.params.urlId });
-    console.log(url);
-    console.log(req.params.urlId);
     if (url) {
       return res.json(url);
     } else {
