@@ -19,6 +19,9 @@ export default function CardTable({ linkTable}) {
           <tbody>
             {arr.map((res, index) => (
               <tr key={index}>
+              <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
+                  {index + 1}
+                </td>
                 <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
                   {res.timestamp ? res.timestamp : "-"}
                 </td>
@@ -29,7 +32,7 @@ export default function CardTable({ linkTable}) {
                   {res.city ? res.city : "-"}
                 </td>
                 <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
-                  {(res.location) ? [`${res.location.coordinates[1]}`, `${res.location.coordinates[0]}`] : "-"}
+                  {(res.location) ? (`[${res.location.coordinates[1]}, ${res.location.coordinates[0]}]`) : "-"}
                 </td>
               </tr>
             ))}
@@ -78,6 +81,13 @@ export default function CardTable({ linkTable}) {
           <table className="items-center w-full bg-transparent border-collapse">
             <thead>
               <tr>
+              <th
+                  className={
+                    "px-6 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left bg-blueGray-50 text-blueGray-500 border-blueGray-100"
+                  }
+                >
+                  No.
+                </th>
                 <th
                   className={
                     "px-6 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left bg-blueGray-50 text-blueGray-500 border-blueGray-100"

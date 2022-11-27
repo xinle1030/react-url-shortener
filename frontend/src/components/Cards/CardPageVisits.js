@@ -5,7 +5,6 @@ import { useHistory } from "react-router-dom";
 // components
 
 export default function CardPageVisits() {
-
   // axios.defaults.baseURL = "http://localhost:3333";
   axios.defaults.baseURL = "https://url-shortener-slink.herokuapp.com";
 
@@ -13,17 +12,17 @@ export default function CardPageVisits() {
   let history = useHistory();
 
   const viewReport = async (url) => {
-
     history.push({
       pathname: `/dashboard/${url.urlId}`,
       // search: '?query=abc',
-      state: { urlId: url.urlId, shortUrl: url.shortUrl, title:  url.title}
-  });
-  }
+      state: { urlId: url.urlId, shortUrl: url.shortUrl, title: url.title },
+    });
+  };
 
   const getAllUrls = async () => {
-    
-    axios.get("/api/urls/all").then((res) => setAllUrls(JSON.stringify(res.data)));
+    axios
+      .get("/api/urls/all")
+      .then((res) => setAllUrls(JSON.stringify(res.data)));
   };
 
   function formatUrlTable(outputResult) {
@@ -35,15 +34,19 @@ export default function CardPageVisits() {
           <tbody>
             {text.map((res, index) => (
               <tr key={index}>
+              <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
+                  {index + 1}
+                </td>
                 <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-left link-box">
                   <strong>
-                  <a className="link-style"
-                    href={res.shortUrl}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    {res.shortUrl}
-                  </a>
+                    <a
+                      className="link-style"
+                      href={res.shortUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      {res.shortUrl}
+                    </a>
                   </strong>
 
                   <div>
@@ -57,18 +60,22 @@ export default function CardPageVisits() {
                     </a>
                   </div>
                 </td>
-                <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">{(res.title) ? res.title : '-'}</td>
-                <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">{res.clicks}</td>
+                <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
+                  {res.title ? res.title : "-"}
+                </td>
+                <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
+                  {res.clicks}
+                </td>
                 <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-left link-box">
                   {/* <strong>
                   <Link className="report-link-style" to={`/dashboard/${res.urlId}`} query={{ userLocation: userLocation }}>View Reports</Link>
                   </strong> */}
                   <button
-              className="bg-lightBlue-500 text-white active:bg-lightBlue-600 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 ease-linear transition-all duration-150"
-              onClick={() => viewReport(res)}
-            >
-              View Reports
-            </button>
+                    className="bg-lightBlue-500 text-white active:bg-lightBlue-600 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 ease-linear transition-all duration-150"
+                    onClick={() => viewReport(res)}
+                  >
+                    View Reports
+                  </button>
                 </td>
               </tr>
             ))}
@@ -82,12 +89,11 @@ export default function CardPageVisits() {
   }
 
   useEffect(() => {
-
     let ignore = false;
 
-    if (!ignore){
+    if (!ignore) {
       getAllUrls();
-    } 
+    }
     return () => {
       ignore = true;
     };
@@ -110,6 +116,9 @@ export default function CardPageVisits() {
           <table className="items-center w-full bg-transparent border-collapse">
             <thead>
               <tr>
+                <th className="px-6 bg-blueGray-50 text-blueGray-500 align-middle border border-solid border-blueGray-100 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left">
+                  No.
+                </th>
                 <th className="px-6 bg-blueGray-50 text-blueGray-500 align-middle border border-solid border-blueGray-100 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left">
                   Url(s)
                 </th>
