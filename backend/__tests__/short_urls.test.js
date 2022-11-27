@@ -20,8 +20,12 @@ test("POST /short", async () => {
     .post(baseUrl + "/short")
     .send(data)
     .then((response) => {
+
       expect(response.body).toHaveProperty("shortUrl");
       expect(response.body).toHaveProperty("urlId");
+      expect(response.body).toHaveProperty("clicks");
+      expect(response.body).toHaveProperty("date");
+      expect(response.body).toHaveProperty("metrics");
 
       expect(response.body.origUrl).toBe(data.origUrl);
       expect(response.body.title).toBe(data.title);
