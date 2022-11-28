@@ -12,12 +12,15 @@ router.get("/", async (req, res) => {
 // redirect to original url using short url
 router.get("/:urlId", async (req, res) => {
 
+  console.log("redirect to original url using short url");
+
   let locObj = null;
 
   try {
     const url = await Url.findOne({ urlId: req.params.urlId });
+    let ipAddress = req.ip;
 
-    await axios.get(`https://ipgeolocation.abstractapi.com/v1/?api_key=${process.env.ABSTRACT_IP_GEO_API_KEY}`)
+    await axios.get(`https://ipgeolocation.abstractapi.com/v1/?api_key=${process.env.ABSTRACT_IP_GEO_API_KEY}&ip_address=${ipAddress}`)
     .then(response => {
         console.log(response.data);
         locObj = {
@@ -26,7 +29,6 @@ router.get("/:urlId", async (req, res) => {
             coordinates: [response.data.longitude, response.data.latitude],
           };
         console.log(locObj);
-        // return locObj;
     })
     .catch(error => {
         console.log(error);
