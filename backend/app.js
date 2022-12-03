@@ -2,6 +2,8 @@ import express from "express";
 import cors from "cors";
 import connectDB from "./config/db.js";
 import dotenv from "dotenv";
+import swaggerUi from 'swagger-ui-express';
+import swaggerSpec from './swagger-config/swagger.js';
 
 dotenv.config({ path: "./config/.env" });
 
@@ -9,6 +11,7 @@ const app = express();
 
 // cors for cross origin requesters to the frontend application
 app.use(cors());
+app.use('/docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 
 connectDB();
 
