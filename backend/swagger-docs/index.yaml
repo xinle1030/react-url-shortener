@@ -1,0 +1,19 @@
+paths:
+  /{urlId}:    
+    get:    
+      tags:
+        - Index
+      summary: Redirect to original url using short url
+      produces:
+      - application/json
+      parameters:     # request parameters
+      - name: url id      # name of parameter passed
+        in: path      # parameters in the path
+        description: path parameter takes the short url id
+        required: true
+        type: string
+      responses:
+        200:
+          description: Retrieve correct original url
+        404:
+          description: Invalid url ID - Not found
