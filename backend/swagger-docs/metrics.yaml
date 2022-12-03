@@ -3,7 +3,7 @@ paths:
     get:    
       tags:
         - Metric
-      summary: Get all metrics
+      summary: get all metrics
       produces:
       - application/json
       responses:
@@ -15,7 +15,7 @@ paths:
     get:    
       tags:
         - Metric
-      summary: get certain metrics by ids
+      summary: get metric(s) by id(s)
       produces:
       - application/json
       parameters:     # request parameters
