@@ -1,0 +1,40 @@
+paths:
+  /api/metrics/all:    
+    get:    
+      tags:
+        - Metric
+      summary: Get all metrics
+      produces:
+      - application/json
+      responses:
+        200:
+          description: Retrieve all metrics
+        404:
+          description: Not found
+  /api/metrics:    
+    get:    
+      tags:
+        - Metric
+      summary: Get certain metrics by ids
+      produces:
+      - application/json
+      parameters:     # request parameters
+        - in: query
+          name: metricIds[]
+          description:  An array of metric ids
+          style: form
+          required: true
+          schema:
+            type: array
+            minItems: 1   # This keyword must be on the same level as `type: array`
+            items:
+              type: string
+          collectionFormat: multi
+          x-example:
+            - 6383a1b20a35ddedb6c54002
+            - 6383a2c355b50d06f2e86d52
+      responses:
+        200:
+          description: Retrieve metrics by ids
+        404:
+          description: Invalid metric id(s) Not found
