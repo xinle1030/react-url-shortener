@@ -1,0 +1,30 @@
+paths:
+  /api/short:                # path of the user from your endpoint
+    post:                 # endpoint request type (post request)
+      tags:               # Tag property
+        - Short Url            # Value of the tag
+      summary: creates a new short url based on the original url
+      produces:
+      - application/json
+      parameters:         # request parameters
+      - in: body          # request body
+        name: shorten url  # name of request, can be any name
+        description: It enables a user to shorten a url
+        required: false   # can also be true depending on user preference
+        schema:           # Schema definition
+          $ref: '#/definitions/shortenUrl' 
+      responses:          # server responses
+        201:
+          description: Successfully create a shortened url
+        400:
+          description: Invalid Original Url
+        500:
+          description: Server Error
+definitions:        # Schema definition for request body
+  shortenUrl:
+    type: object
+    properties:
+      origUrl:
+        type: string
+      title:
+        type: string
