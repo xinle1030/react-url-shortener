@@ -15,7 +15,7 @@ paths:
     get:    
       tags:
         - Metric
-      summary: Get certain metrics by ids
+      summary: get certain metrics by ids
       produces:
       - application/json
       parameters:     # request parameters

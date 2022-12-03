@@ -3,7 +3,7 @@ paths:
     get:    
       tags:
         - Index
-      summary: Redirect to original url using short url
+      summary: redirect to original url using short url
       produces:
       - application/json
       parameters:     # request parameters
