@@ -32,7 +32,7 @@ router.post("/short", async (req, res) => {
         });
 
         await url.save();
-        res.json(url);
+        res.status(201).json(url);
       }
     } catch (err) {
       console.log(err);
