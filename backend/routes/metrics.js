@@ -10,7 +10,7 @@ const router = express.Router();
 // Get all metrics
 router.get("/all", async (req, res, next) => {
   console.log("Get all metrics");
-  await Metric.find({}).sort({ timestamp: -1 })
+  await Metric.find({}).sort({ _id: -1 })
     .then((data) => {
       console.log("Data: ", data);
       res.json(data);
