@@ -23,7 +23,7 @@ import metricsRouter from "./routes/metrics.js";
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
-app.set('trust proxy', true)
+app.set('trust proxy', true);
 
 app.use("/api", shortUrlsRouter);
 app.use("/api/urls", urlsRouter);
