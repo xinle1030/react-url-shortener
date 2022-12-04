@@ -100,7 +100,11 @@ export async function seedMetric(seededUrl, metricArr) {
     );
   }
 
-  return seededMetrics;
+  let sortedSeedMetrics = await Metric.find({})
+  .sort({ _id: -1 })
+  .limit(seededMetrics.length);
+
+  return sortedSeedMetrics;
 }
 
 export async function findTopLink() {
