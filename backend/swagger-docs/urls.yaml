@@ -1,59 +1,59 @@
 paths:
-  /api/urls/all:    
+  /api/urls/all:
     get:
       tags:
         - Url
       summary: get all urls
       produces:
-      - application/json
+        - application/json
       responses:
         200:
           description: Retrieve all urls
         404:
           description: Not found
-  /api/urls/all/summary:    
-    get:    
+  /api/urls/all/summary:
+    get:
       tags:
         - Url
       summary: get summary for all urls
       produces:
-      - application/json
+        - application/json
       responses:
         200:
           description: Retrieve summary for all urls
         404:
           description: Not found
   /api/urls/{urlId}:
-    get:    
+    get:
       tags:
         - Url
       summary: get a url by url id
       produces:
-      - application/json
-      parameters:     # request parameters
-      - in: path      # parameters in the path
-        name: url id  # name of parameter passed
-        description: path parameter takes the short url id
-        required: true
-        type: string
+        - application/json
+      parameters: # request parameters
+        - in: path # parameters in the path
+          name: urlId # name of parameter passed
+          description: path parameter takes the short url id
+          required: true
+          type: string
       responses:
         200:
           description: Retrieve a url
         404:
           description: Invalid url id - Not found
-  /api/urls/{urlId}/summary:    
-    get:    
+  /api/urls/{urlId}/summary:
+    get:
       tags:
         - Url
       summary: get summary for a url by url id
       produces:
-      - application/json
-      parameters:     # request parameters
-      - in: path      # parameters in the path
-        name: url id  # name of parameter passed
-        description: path parameter takes the short url id
-        required: true
-        type: string
+        - application/json
+      parameters: # request parameters
+        - in: path # parameters in the path
+          name: urlId # name of parameter passed
+          description: path parameter takes the short url id
+          required: true
+          type: string
       responses:
         200:
           description: Retrieve a url summary

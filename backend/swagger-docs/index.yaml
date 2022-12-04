@@ -3,11 +3,11 @@ paths:
     get:    
       tags:
         - Index
-      summary: redirect to original url using short url
+      summary: Redirect to original url using short url
       produces:
       - application/json
       parameters:     # request parameters
-      - name: url id      # name of parameter passed
+      - name: urlId   # name of parameter passed
         in: path      # parameters in the path
         description: path parameter takes the short url id
         required: true
