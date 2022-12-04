@@ -28,8 +28,8 @@ router.get("/", async (req, res, next) => {
   console.log(objectIds);
 
   await Metric.find({
-    _id: { $in: objectIds },
-  }).sort({ timestamp: -1 })
+    _id: { $in: objectIds }})
+    .sort({ _id: -1 })
     .then((data) => {
       console.log(data);
       res.json(data);
