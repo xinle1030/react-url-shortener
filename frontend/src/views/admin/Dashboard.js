@@ -9,8 +9,8 @@ import CardDoughnutChart from "components/Cards/CardDoughnutChart";
 
 export default function Dashboard() {
 
-  axios.defaults.baseURL = "http://localhost:3333";
-  // axios.defaults.baseURL = "https://url-shortener-slink.herokuapp.com";
+  // axios.defaults.baseURL = "http://localhost:3333";
+  axios.defaults.baseURL = "https://url-shortener-slink.herokuapp.com";
 
   const [totalClicks, setTotalClicks] = useState(0);
   const [topLink, setTopLink] = useState("");
