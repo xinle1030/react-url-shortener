@@ -52,6 +52,7 @@ Automated testing for backend APIs are written using Jest.
 - Open Terminal
 - Go to your file project - backend folder (where you’ve unzipped the product)
 - Run in terminal `npm test`
+  - To see coverage test results, Run in terminal `npm test -- --coverage`
 
 ## Environment Variables
 
@@ -65,7 +66,9 @@ To run this project, you will need to add the following environment variables to
 | `BASE`                         | Base URL for Shortening (such as http://localhost:3333 if you running locally)             |
 | `ABSTRACT_IP_GEO_API_KEY`      | API Key for Abstract IP Geolocation from `https://app.abstractapi.com/api/ip-geolocation/` |
 
-## API Reference
+## API Reference using Swagger
+
+Navigate to `/docs` (such as `http://localhost:3333/docs`)
 
 ### index.js
 
