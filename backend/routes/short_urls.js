@@ -11,8 +11,8 @@ const router = express.Router();
 router.post("/short", async (req, res) => {
   console.log(req.body);
   const { origUrl, title } = req.body;
-  const base = process.env.BASE;
-  // const base = "https://url-shortener-slink.herokuapp.com";
+  // const base = process.env.BASE;
+  const base = "https://url-shortener-slink.herokuapp.com";
 
   const urlId = nanoid(15);
   if (validateUrl(origUrl)) {
