@@ -9,7 +9,7 @@ const router = express.Router();
 
 // Short URL Generator
 router.post("/short", async (req, res) => {
-  console.log(req.body);
+  console.log("Shorten URL");
   const { origUrl, title } = req.body;
   // const base = process.env.BASE;
   const base = "https://url-shortener-slink.herokuapp.com";
@@ -17,7 +17,20 @@ router.post("/short", async (req, res) => {
   const urlId = nanoid(15);
   if (validateUrl(origUrl)) {
     try {
-      let url = await Url.findOne({ origUrl });
+      let url = await Url.findOneAndUpdate(
+        { origUrl },
+        {
+          $set: {
+            title: title
+          },
+        },
+        {
+          returnDocument: 'after', // this is new !
+        }
+      );
+
+      console.log(url);
+
       if (url) {
         res.json(url);
       } else {
