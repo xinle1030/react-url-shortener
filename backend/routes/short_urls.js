@@ -11,42 +11,24 @@ const router = express.Router();
 router.post("/short", async (req, res) => {
   console.log("Shorten URL");
   const { origUrl, title } = req.body;
-  // const base = process.env.BASE;
-  const base = "https://url-shortener-slink.herokuapp.com";
+  const base = process.env.BASE;
+  // const base = "https://url-shortener-slink.herokuapp.com";
 
   const urlId = nanoid(15);
   if (validateUrl(origUrl)) {
     try {
-      let url = await Url.findOneAndUpdate(
-        { origUrl },
-        {
-          $set: {
-            title: title
-          },
-        },
-        {
-          returnDocument: 'after', // this is new !
-        }
-      );
+      const shortUrl = `${base}/${urlId}`;
 
-      console.log(url);
+      let url = new Url({
+        origUrl,
+        shortUrl,
+        urlId,
+        date: new Date(),
+        title: title,
+      });
 
-      if (url) {
-        res.json(url);
-      } else {
-        const shortUrl = `${base}/${urlId}`;
-
-        url = new Url({
-          origUrl,
-          shortUrl,
-          urlId,
-          date: new Date(),
-          title: title,
-        });
-
-        await url.save();
-        res.status(201).json(url);
-      }
+      await url.save();
+      res.status(201).json(url);
     } catch (err) {
       console.log(err);
       res.status(500).json("Server Error");
