@@ -136,7 +136,7 @@ Redirect to original URL
 
 | Field | Type   | Description                               |
 | :---- | :----- | :---------------------------------------- |
-| Body  | `json` | Original Url, Title Tag of Url (Optional) |
+| Body  | `json` | origUrl                                   |
 
 **Example:**
 
