@@ -6,7 +6,6 @@ export const urlSample = [
   {
     origUrl:
       "https://shopee.com.my/Asus-Zenbook-14-UX425E-AKI839WS-I5-1135G7-8GB-Ram-512GB-M.2-Iris-Xe-Graphics-14-FHD-Office-i.475306177.9176347026?sp_atk=d905691d-8ad5-4ffc-ad17-ca89e8983d58&xptdk=d905691d-8ad5-4ffc-ad17-ca89e8983d58",
-    title: "shopee asus zenbook",
   },
 ];
 
@@ -14,12 +13,10 @@ export const moreUrlSamples = [
   {
     origUrl:
       "https://shopee.com.my/Asus-Zenbook-14-UX425E-AKI839WS-I5-1135G7-8GB-Ram-512GB-M.2-Iris-Xe-Graphics-14-FHD-Office-i.475306177.9176347026?sp_atk=d905691d-8ad5-4ffc-ad17-ca89e8983d58&xptdk=d905691d-8ad5-4ffc-ad17-ca89e8983d58",
-    title: "shopee asus zenbook",
   },
   {
     origUrl:
       "https://www.lazada.com.my/products/hot-swappable-royal-kludge-rk61-real-mechanical-keyboard-gaming-bluetooth-wireless-60-rgb-rk-61-61-keys-3-mode-keychron-k12-i1963348553-s10040430686.html?clickTrackInfo=undefined&search=1&source=search&spm=a2o4k.searchlist.list.i40.673b46d8DOCQNS",
-    title: "lazada keyboard",
   },
 ];
 
@@ -65,7 +62,6 @@ export async function seedUrl(urlArr) {
       origUrl: currentUrl.origUrl,
       shortUrl: `http://localhost:3333/${urlId}`,
       urlId: urlId,
-      title: currentUrl.title,
     };
 
     retUrlArr.push(url);
