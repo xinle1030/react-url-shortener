@@ -24,7 +24,7 @@ const UrlSchema = new mongoose.Schema({
   },
   title: {
     type: String,
-    required: false,
+    default: "",
   },
   // data associations using references
   // each url has an array of metrics
