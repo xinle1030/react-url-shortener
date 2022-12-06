@@ -22,13 +22,13 @@ export default function CardForm() {
       })
       .then((res) => {
         console.log(res.data);
+        setUrl("");
+        history.push("/dashboard");
       })
       .catch((err) => {
-        console.log(err.message);
-        setErr(err.message);
+        console.log(err);
+        setErr(err.response.data);
       });
-    setUrl("");
-    history.push("/dashboard");
   };
 
   return (
@@ -47,7 +47,22 @@ export default function CardForm() {
               Where you want to take your audience to?
             </h6>
             <div className="flex flex-wrap">
+
               <div className="w-full px-4">
+
+              <div>
+              {err && (
+                <div
+                  class="bg-red-500 text-white px-4 py-3 rounded relative"
+                  role="alert"
+                >
+                  {err}
+                </div>
+              )}
+
+              <br></br>
+            </div>
+            
                 <div className="relative w-full mb-3">
                   <label
                     className="block uppercase text-blueGray-600 text-xs font-bold mb-2"
@@ -68,17 +83,6 @@ export default function CardForm() {
             </div>
 
             <br></br>
-
-            <div>
-              {err && (
-                <div
-                  class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative"
-                  role="alert"
-                >
-                  {err}
-                </div>
-              )}
-            </div>
 
             <button
               className="bg-lightBlue-500 text-white active:bg-lightBlue-600 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 ease-linear transition-all duration-150"
