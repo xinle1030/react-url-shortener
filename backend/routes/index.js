@@ -2,6 +2,7 @@ import express from "express";
 import axios from "axios";
 import Url from "../models/Url.js";
 import Metric from "../models/Metric.js";
+import mongoose from "mongoose";
 
 const router = express.Router();
 
@@ -14,6 +15,9 @@ router.get("/:urlId", async (req, res) => {
   console.log("redirect to original url using short url");
 
   let locObj = null;
+
+  const session = await mongoose.startSession();
+  session.startTransaction();
 
   try {
     const url = await Url.findOne({ urlId: req.params.urlId });
@@ -59,7 +63,6 @@ router.get("/:urlId", async (req, res) => {
     }
 
     if (metric) {
-      
       await metric.save();
 
       await Url.updateOne(
@@ -72,11 +75,20 @@ router.get("/:urlId", async (req, res) => {
       const checkUrl = await Url.findOne({ urlId: req.params.urlId });
       console.log(checkUrl);
 
+      await session.commitTransaction();
+      session.endSession();
+
       return res.redirect(url.origUrl);
-    } else res.status(404).json("Not found");
+    } else {
+      await session.abortTransaction();
+
+      return res.status(404).json("Not found");
+    }
   } catch (err) {
+    await session.abortTransaction();
+    session.endSession();
     console.log(err);
-    res.status(500).json("Server Error");
+    return res.status(500).json("Server Error");
   }
 });
 
