@@ -1,24 +1,17 @@
 import express from "express";
 import { nanoid } from "nanoid";
 import Url from "../models/Url.js";
-import { validateUrl } from "../utils/utils.js";
+import { validateUrl, parseTitle } from "../utils/utils.js";
 import fetch from "node-fetch";
 import dotenv from "dotenv";
 dotenv.config({ path: "../config/.env" });
 
 const router = express.Router();
 
-const parseTitle = (body) => {
-  let match = body.match(/<title>([^<]*)<\/title>/) // regular expression to parse contents of the <title> tag
-  if (!match || typeof match[1] !== 'string')
-    throw new Error('Unable to parse the title tag')
-  return match[1]
-}
-
 // Short URL Generator
 router.post("/short", async (req, res) => {
   console.log("Shorten URL");
-  const { origUrl } = req.body;
+  const origUrl = req.body.origUrl;
   let title;
   const base = process.env.BASE;
   // const base = "https://url-shortener-slink.herokuapp.com";
