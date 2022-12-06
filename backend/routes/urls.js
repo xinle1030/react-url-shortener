@@ -19,7 +19,7 @@ router.get("/all/summary", async (req, res, next) => {
   };
 
   // find totalClicks
-  await Url.aggregate([
+  Url.aggregate([
     { $group: { _id: null, totalClicks: { $sum: "$clicks" } } },
   ]).then((data) => {
     if (data && data.length > 0) {

@@ -19,7 +19,7 @@ router.post("/short", async (req, res) => {
   const urlId = nanoid(15);
   if (validateUrl(origUrl)) {
 
-    await fetch(origUrl)
+    fetch(origUrl)
     .then(res => res.text()) // parse response's body as text
     .then(body => parseTitle(body)) // extract <title> from body
     .then(retTitle => title = retTitle) // send the result back

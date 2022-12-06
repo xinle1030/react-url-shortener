@@ -8,9 +8,10 @@ const ObjectId = mongooseUtil.Types.ObjectId;
 const router = express.Router();
 
 // Get all metrics
-router.get("/all", async (req, res, next) => {
+router.get("/all", (req, res, next) => {
   console.log("Get all metrics");
-  await Metric.find({}).sort({ _id: -1 })
+  
+  Metric.find({}).sort({ _id: -1 })
     .then((data) => {
       console.log("Data: ", data);
       res.json(data);
@@ -21,13 +22,13 @@ router.get("/all", async (req, res, next) => {
 });
 
 // Get certain metrics by ids
-router.get("/", async (req, res, next) => {
+router.get("/", (req, res, next) => {
   console.log("Get certain metrics");
 
   let objectIds = req.query.metricIds;
   console.log(objectIds);
 
-  await Metric.find({
+  Metric.find({
     _id: { $in: objectIds }})
     .sort({ _id: -1 })
     .then((data) => {
@@ -40,7 +41,7 @@ router.get("/", async (req, res, next) => {
 });
 
 // get metrics summary by Ids
-export const getMetricsSummaryByIds = async (metricIds) => {
+export const getMetricsSummaryByIds = (metricIds) => {
   let retData = {
     topCountry: "",
     countryCount: [],
@@ -49,7 +50,7 @@ export const getMetricsSummaryByIds = async (metricIds) => {
   if (metricIds) {
     let objectIds = metricIds.map((id) => new ObjectId(id));
 
-    await Metric.aggregate([
+    Metric.aggregate([
       { $match: { _id: { $in: objectIds } } },
       {
         $group: {
@@ -97,14 +98,14 @@ export const getMetricsSummaryByIds = async (metricIds) => {
 };
 
 // get all metric summary
-export const getAllMetricsSummary = async () => {
+export const getAllMetricsSummary =  () => {
   let retData = {
     topCountry: "",
     countryCount: [],
   };
 
   // find top country
-  await Metric.aggregate([
+  Metric.aggregate([
     {
       $group: {
         _id: {
