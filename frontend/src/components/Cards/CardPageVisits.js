@@ -11,7 +11,7 @@ export default function CardPageVisits() {
   const [allUrls, setAllUrls] = useState("");
   let history = useHistory();
 
-  const viewReport = async (url) => {
+  const viewReport = (url) => {
     history.push({
       pathname: `/dashboard/${url.urlId}`,
       // search: '?query=abc',
@@ -19,7 +19,7 @@ export default function CardPageVisits() {
     });
   };
 
-  const getAllUrls = async () => {
+  const getAllUrls = () => {
     axios
       .get("/api/urls/all")
       .then((res) => setAllUrls(JSON.stringify(res.data)));

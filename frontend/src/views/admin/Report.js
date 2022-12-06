@@ -20,9 +20,9 @@ export default function Report() {
   const location = useLocation();
   const urlId = location.state.urlId;
 
-  const getAllMetric = async (metricIds) => {
+  const getAllMetric = (metricIds) => {
 
-    await axios
+    axios
       .get(
         `/api/metrics?${metricIds
           .map((n, index) => `metricIds[${index}]=${n}`)
@@ -38,9 +38,9 @@ export default function Report() {
 
   useEffect(() => {
 
-    const getMetricSummary = async () => {
+    const getMetricSummary = () => {
 
-      await axios
+      axios
         .get(`/api/urls/${urlId}/summary`)
         .then((res) => {
           let retData = res.data;

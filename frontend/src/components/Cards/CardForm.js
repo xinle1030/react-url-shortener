@@ -10,12 +10,12 @@ export default function CardForm() {
   const [url, setUrl] = useState("");
   let history = useHistory();
 
-  const onSubmit = async (e) => {
+  const onSubmit = (e) => {
     e.preventDefault();
 
     console.log(url);
 
-    await axios
+    axios
       .post("/api/short", {
         origUrl: url,
       })

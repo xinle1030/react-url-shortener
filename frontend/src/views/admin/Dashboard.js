@@ -17,9 +17,9 @@ export default function Dashboard() {
   const [topCountry, setTopCountry] = useState("");
   const [countryCount, setCountryCount] = useState([]);
 
-  const getUrlSummary = async () => {
+  const getUrlSummary = () => {
     
-    await axios.get("/api/urls/all/summary").then((res) => {
+    axios.get("/api/urls/all/summary").then((res) => {
       let retData = res.data;
       setTotalClicks(retData.totalClicks);
       setTopLink(retData.topLink);
