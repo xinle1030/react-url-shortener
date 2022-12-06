@@ -4,34 +4,28 @@ import { useHistory } from "react-router-dom";
 // components
 
 export default function CardForm() {
-
   // axios.defaults.baseURL = "http://localhost:3333";
   axios.defaults.baseURL = "https://url-shortener-slink.herokuapp.com";
 
   const [url, setUrl] = useState("");
-  const [title, setTitle] = useState("");
   let history = useHistory();
 
   const onSubmit = async (e) => {
     e.preventDefault();
 
     console.log(url);
-    console.log(title);
 
-    
     await axios
       .post("/api/short", {
         origUrl: url,
-        title: title,
       })
       .then((res) => {
         console.log(res.data);
       })
       .catch((err) => {
-        console.log(err.message); 
+        console.log(err.message);
       });
     setUrl("");
-    setTitle("");
     history.push("/dashboard");
   };
 
@@ -66,23 +60,6 @@ export default function CardForm() {
                     placeholder="http://sampleurl.com"
                     value={url}
                     onChange={(e) => setUrl(e.target.value)}
-                  />
-                </div>
-              </div>
-
-              <div className="w-full px-4">
-                <div className="relative w-full mb-3">
-                  <label
-                    className="block uppercase text-blueGray-600 text-xs font-bold mb-2"
-                    htmlFor="grid-password"
-                  >
-                    Title Tag (Optional)
-                  </label>
-                  <input
-                    type="text"
-                    className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
-                    value={title}
-                    onChange={(e) => setTitle(e.target.value)}
                   />
                 </div>
               </div>
