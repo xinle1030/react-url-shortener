@@ -27,22 +27,21 @@ test("GET /all", async () => {
   let seededUrl = await seedUrl(urlSample);
   let seededMetrics = await seedMetric(seededUrl, metrics1);
 
-  await agent
-    .get(baseUrl + "/all")
-    .expect(200)
-    .then((response) => {
-      expect(response.body.length).toBe(seededMetrics.length);
+  let response = await agent.get(baseUrl + "/all").expect(200);
 
-      // Check data
-      for (let i in seededMetrics) {
-        expect(response.body[i].country).toBe(seededMetrics[i].country);
-        expect(response.body[i].city).toBe(seededMetrics[i].city);
-        expect(response.body[i].location).toStrictEqual(
-          seededMetrics[i].location
-        );
-        expect(response.body[i].timestamp).toEqual(expect.anything());
-      }
-    });
+  if (response) {
+    expect(response.body.length).toBe(seededMetrics.length);
+
+    // Check data
+    for (let i in seededMetrics) {
+      expect(response.body[i].country).toBe(seededMetrics[i].country);
+      expect(response.body[i].city).toBe(seededMetrics[i].city);
+      expect(response.body[i].location).toStrictEqual(
+        seededMetrics[i].location
+      );
+      expect(response.body[i].timestamp).toEqual(expect.anything());
+    }
+  }
 });
 
 test("GET /", async () => {
@@ -51,23 +50,24 @@ test("GET /", async () => {
 
   let metricIds = seededMetrics.map((metric) => metric.id);
 
-  await agent
+  let response = await agent
     .get(baseUrl)
     .query({ metricIds: metricIds })
-    .expect(200)
-    .then((response) => {
-      expect(response.body.length).toBe(metricIds.length);
+    .expect(200);
 
-      // Check data
-      for (let i in seededMetrics) {
-        expect(response.body[i].country).toBe(seededMetrics[i].country);
-        expect(response.body[i].city).toBe(seededMetrics[i].city);
-        expect(response.body[i].location).toStrictEqual(
-          seededMetrics[i].location
-        );
-        expect(response.body[i].timestamp).toEqual(expect.anything());
-      }
-    });
+  if (response) {
+    expect(response.body.length).toBe(metricIds.length);
+
+    // Check data
+    for (let i in seededMetrics) {
+      expect(response.body[i].country).toBe(seededMetrics[i].country);
+      expect(response.body[i].city).toBe(seededMetrics[i].city);
+      expect(response.body[i].location).toStrictEqual(
+        seededMetrics[i].location
+      );
+      expect(response.body[i].timestamp).toEqual(expect.anything());
+    }
+  }
 });
 
 test("Get Metric Summary by Ids", async () => {
@@ -82,7 +82,6 @@ test("Get Metric Summary by Ids", async () => {
 });
 
 test("Get All Metric Summary", async () => {
-
   let seededUrls = await seedUrl(moreUrlSamples);
   let seededMetrics1 = await seedMetric(seededUrls[0], metrics1);
   let seededMetrics2 = await seedMetric(seededUrls[1], metrics2);
