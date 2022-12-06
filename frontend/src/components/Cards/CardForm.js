@@ -8,6 +8,7 @@ export default function CardForm() {
   axios.defaults.baseURL = "https://url-shortener-slink.herokuapp.com";
 
   const [url, setUrl] = useState("");
+  const [err, setErr] = useState("");
   let history = useHistory();
 
   const onSubmit = (e) => {
@@ -24,6 +25,7 @@ export default function CardForm() {
       })
       .catch((err) => {
         console.log(err.message);
+        setErr(err.message);
       });
     setUrl("");
     history.push("/dashboard");
@@ -66,6 +68,17 @@ export default function CardForm() {
             </div>
 
             <br></br>
+
+            <div>
+              {err && (
+                <div
+                  class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative"
+                  role="alert"
+                >
+                  {err}
+                </div>
+              )}
+            </div>
 
             <button
               className="bg-lightBlue-500 text-white active:bg-lightBlue-600 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 ease-linear transition-all duration-150"
