@@ -7,6 +7,7 @@ const swaggerDefinition = {
     description: 'This is the REST API for my url-shortener', // short description of the app
   },
   host: 'url-shortener-slink.herokuapp.com', // the host or url of the app
+  // host: 'localhost:3333',
   basePath: '/', // the basepath of your endpoint
 };
 
