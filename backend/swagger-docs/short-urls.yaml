@@ -26,5 +26,3 @@ definitions: # Schema definition for request body
     properties:
       origUrl:
         type: string
-      title:
-        type: string
