@@ -41,7 +41,7 @@ router.get("/", (req, res, next) => {
 });
 
 // get metrics summary by Ids
-export const getMetricsSummaryByIds = (metricIds) => {
+export const getMetricsSummaryByIds = async (metricIds) => {
   let retData = {
     topCountry: "",
     countryCount: [],
@@ -50,7 +50,7 @@ export const getMetricsSummaryByIds = (metricIds) => {
   if (metricIds) {
     let objectIds = metricIds.map((id) => new ObjectId(id));
 
-    Metric.aggregate([
+    let data = await Metric.aggregate([
       { $match: { _id: { $in: objectIds } } },
       {
         $group: {
@@ -78,18 +78,17 @@ export const getMetricsSummaryByIds = (metricIds) => {
           "_id.country": 1,
         },
       },
-    ]).then((data) => {
-      console.log(data);
-      if (data.length > 0) {
-        retData.topCountry = data[0]["_id"]["country"];
-        data.forEach((eachData) => {
-          retData.countryCount.push({
-            country: eachData["_id"]["country"],
-            count: eachData.count,
-          });
+    ])
+
+    if (data && data.length > 0) {
+      retData.topCountry = data[0]["_id"]["country"];
+      data.forEach((eachData) => {
+        retData.countryCount.push({
+          country: eachData["_id"]["country"],
+          count: eachData.count,
         });
-      }
-    });
+      });
+    }
   }
 
   console.log(retData);
@@ -98,14 +97,14 @@ export const getMetricsSummaryByIds = (metricIds) => {
 };
 
 // get all metric summary
-export const getAllMetricsSummary =  () => {
+export const getAllMetricsSummary =  async () => {
   let retData = {
     topCountry: "",
     countryCount: [],
   };
 
   // find top country
-  Metric.aggregate([
+  let data = await Metric.aggregate([
     {
       $group: {
         _id: {
@@ -132,17 +131,17 @@ export const getAllMetricsSummary =  () => {
         "_id.country": 1,
       },
     },
-  ]).then((data) => {
-    if (data.length > 0) {
-      retData.topCountry = data[0]["_id"]["country"];
-      data.forEach((eachData) => {
-        retData.countryCount.push({
-          country: eachData["_id"]["country"],
-          count: eachData.count,
-        });
+  ]);
+
+  if (data && data.length > 0) {
+    retData.topCountry = data[0]["_id"]["country"];
+    data.forEach((eachData) => {
+      retData.countryCount.push({
+        country: eachData["_id"]["country"],
+        count: eachData.count,
       });
-    }
-  });
+    });
+  }
 
   return retData;
 };

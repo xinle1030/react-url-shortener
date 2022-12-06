@@ -1,6 +1,5 @@
 import express from "express";
 import Url from "../models/Url.js";
-import Metric from "../models/Metric.js";
 import dotenv from "dotenv";
 dotenv.config({ path: "../config/.env" });
 import { getAllMetricsSummary, getMetricsSummaryByIds } from "./metrics.js";
@@ -41,20 +40,22 @@ router.get("/all/summary", async (req, res, next) => {
   // find top country
   let allMetricsSummary = Promise.resolve(await getAllMetricsSummary());
 
-  retData.topCountry = (await allMetricsSummary).topCountry;
-  retData.countryCount = (await allMetricsSummary).countryCount;
+  console.log(allMetricsSummary);
 
-  console.log(retData);
+  if (allMetricsSummary){
+    retData.topCountry = (await allMetricsSummary).topCountry;
+    retData.countryCount = (await allMetricsSummary).countryCount;
+  }
 
   return res.json(retData);
 });
 
 // Get all links
-router.get("/all", async (req, res, next) => {
+router.get("/all", (req, res, next) => {
   console.log("Get all urls");
-  await Url.find({})
+  Url.find({})
     .sort({ _id: -1 })
-    .then((data) => {
+    .then((data) => { 
       console.log("Data: ", data);
       res.json(data);
     })

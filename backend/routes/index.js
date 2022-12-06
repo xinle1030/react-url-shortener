@@ -6,7 +6,7 @@ import IP from "ip";
 
 const router = express.Router();
 
-router.get("/", async (req, res) => {
+router.get("/", (req, res) => {
   res.send("Welcome to Url Shortener API!");
 });
 
