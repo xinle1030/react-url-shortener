@@ -2,7 +2,6 @@ import express from "express";
 import axios from "axios";
 import Url from "../models/Url.js";
 import Metric from "../models/Metric.js";
-import IP from "ip";
 
 const router = express.Router();
 
@@ -60,6 +59,7 @@ router.get("/:urlId", async (req, res) => {
     }
 
     if (metric) {
+      
       await metric.save();
 
       await Url.updateOne(
